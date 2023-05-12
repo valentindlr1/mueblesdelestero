@@ -14,6 +14,54 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      lName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: " "
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      phone: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: "Sin teléfono"
+      },
+      dni: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: "Sin DNI"
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      picture: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: ""
+      },
+      purchases: {
+        type: DataTypes.ARRAY(DataTypes.JSON),
+        allowNull: false,
+        defaultValue: []
+      },
+      joinedAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW
+      },
+      isAdmin: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+      },
+      isBan: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+      }
     },
     {
       timestamps: false,
