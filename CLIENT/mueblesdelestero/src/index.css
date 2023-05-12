@@ -76,3 +76,6 @@ body {
   min-width: 320px;
   min-height: 100vh;
 }
+hr{
+  width: 90%;
+}

@@ -1,0 +1,31 @@
+.landingContainer{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100vw;
+    height: 100vh;
+    place-items: center;
+    justify-content: center;
+}
+.landingMenu{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid black;
+    width: 500px;
+    height: 500px;
+}
+.landingForm{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+}
+.landingBottom{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    position: absolute;
+    margin-top: 450px;
+}
