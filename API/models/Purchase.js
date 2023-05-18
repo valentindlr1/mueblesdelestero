@@ -50,6 +50,11 @@ module.exports = (sequelize) => {
         type: DataTypes.DECIMAL,
         allowNull: false,
         defaultValue: 0
+      },
+      status: {
+        type: DataTypes.ENUM("En fabricación", "Abonado", "Señado", "En camino", "Entregado"),
+        allowNull: false,
+        defaultValue: "Señado"
       }
     },
     {
