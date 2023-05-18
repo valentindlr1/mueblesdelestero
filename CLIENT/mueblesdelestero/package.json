@@ -12,15 +12,20 @@
   "dependencies": {
     "@cloudinary/react": "^1.11.2",
     "@cloudinary/url-gen": "^1.10.0",
+    "@react-oauth/google": "^0.11.0",
     "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
+    "dotenv": "^16.0.3",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.11.1",
+    "react-scripts": "^5.0.1",
     "redux": "^4.2.1",
-    "redux-thunk": "^2.4.2"
+    "redux-thunk": "^2.4.2",
+    "webpack": "^5.83.1",
+    "webpack-bundle": "^0.9.75"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
