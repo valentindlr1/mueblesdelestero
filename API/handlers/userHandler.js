@@ -4,6 +4,8 @@ const {
   loginUser,
   forgotPass,
   resetPass,
+  updateUserInfo,
+  setBanStatus,
 } = require("../controllers/userController");
 const {
   sendRegisterEmail,
@@ -71,6 +73,35 @@ async function resetPasshandler(req, res) {
     return res.status(400).json(error);
   }
 }
+async function updateUserInfoHandler(req, res) {
+  try {
+    const { id } = req.params;
+    const { name, lName, dni, picture, phone } = req.body;
+    const result = await updateUserInfo({
+      name,
+      lName,
+      dni,
+      picture,
+      phone,
+      id,
+    });
+    return res.send(result);
+  } catch (error) {
+    console.error("ERROR: ", error.message);
+    return res.status(400).json(error);
+  }
+}
+async function setBanStatusHandler (req, res) {
+  try {
+    const {id} = req.params
+    const {status} = req.body
+    const result = await setBanStatus({status, id})
+    return res.send(result)
+  } catch (error) {
+    console.error("ERROR: ", error.message);
+    return res.status(400).json(error);
+  }
+}
 
 module.exports = {
   getAllUsersHandler,
@@ -78,4 +109,6 @@ module.exports = {
   loginUserHandler,
   forgotPassHandler,
   resetPasshandler,
+  updateUserInfoHandler,
+  setBanStatusHandler,
 };

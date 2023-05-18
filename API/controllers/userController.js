@@ -54,6 +54,8 @@ async function loginUser({ email, password }) {
     // Then check the password
     const passCheck = await bcrypt.compare(password, user.password);
     if (!passCheck) return "Credenciales incorrectas";
+    // Check if it's not banned
+    if (user.isBan) return "Error al acceder: Usuario baneado."
     // Finally login
     return {
       user: {
@@ -61,6 +63,7 @@ async function loginUser({ email, password }) {
         name: user.name,
         lName: user.lName,
         picture: user.picture,
+        id: user.id
       },
     };
   } catch (error) {
@@ -117,6 +120,43 @@ async function resetPass({ token, password }) {
     throw new Error(error);
   }
 }
+async function updateUserInfo({ name, lName, phone, dni, picture, id }) {
+  try {
+    await User.update(
+      {
+        name,
+        lName,
+        phone,
+        dni,
+        picture,
+      },
+      {
+        where: {
+          id: id,
+        },
+      }
+    );
+    return "Datos acualizados";
+  } catch (error) {
+    console.error("ERROR: ", error.message);
+    throw new Error(error);
+  }
+}
+async function setBanStatus ({status, id}) {
+  try {
+    await User.update({
+      isBan: status
+    }, {
+      where: {
+        id: id
+      }
+    })
+    return status ? "Usuario baneado" : "Usuario desbaneado"
+  } catch (error) {
+    console.error("ERROR: ", error.message);
+    throw new Error(error);
+  }
+}
 
 module.exports = {
   getAllUsers,
@@ -124,4 +164,6 @@ module.exports = {
   loginUser,
   forgotPass,
   resetPass,
+  updateUserInfo,
+  setBanStatus,
 };
