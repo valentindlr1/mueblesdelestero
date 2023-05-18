@@ -17,51 +17,54 @@ module.exports = (sequelize) => {
       lName: {
         type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: " "
+        defaultValue: " ",
       },
       email: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       phone: {
         type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: "Sin teléfono"
+        defaultValue: "Sin teléfono",
       },
       dni: {
         type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: "Sin DNI"
+        defaultValue: "Sin DNI",
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       picture: {
         type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: ""
+        defaultValue: "",
       },
       purchases: {
         type: DataTypes.ARRAY(DataTypes.JSON),
         allowNull: false,
-        defaultValue: []
+        defaultValue: [],
       },
       joinedAt: {
         type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: DataTypes.NOW
+        defaultValue: DataTypes.NOW,
       },
       isAdmin: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
-        defaultValue: false
+        defaultValue: false,
       },
       isBan: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
-        defaultValue: false
-      }
+        defaultValue: false,
+      },
+      resetToken: {
+        type: DataTypes.STRING,
+      },
     },
     {
       timestamps: false,

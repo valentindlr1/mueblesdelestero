@@ -2,6 +2,12 @@ const { Op } = require("sequelize");
 const { User } = require("../db");
 const sequelize = require("sequelize");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const {
+  sendRegisterEmail,
+  sendForgotPassMail,
+} = require("./nodemailerController");
+require("dotenv").config();
 
 async function getAllUsers() {
   try {
@@ -58,7 +64,56 @@ async function loginUser({ email, password }) {
       },
     };
   } catch (error) {
-    console.error("ERROR: ", error.mesage);
+    console.error("ERROR: ", error.message);
+    throw new Error(error);
+  }
+}
+async function forgotPass({ email }) {
+  try {
+    const user = await User.findOne({ where: { email: email } });
+    if (!user) return "Email incorrecto";
+    const { name } = user;
+    let token = jwt.sign({ username: name }, process.env.SECRET_JWT, {
+      expiresIn: "10m",
+    });
+    await sendForgotPassMail({ email, name, token });
+    await User.update(
+      {
+        resetToken: token,
+      },
+      {
+        where: {
+          email: email,
+        },
+      }
+    );
+    return "Se ha enviado un mail de recuperación a " + email;
+  } catch (error) {
+    console.error("ERROR: ", error.message);
+    throw new Error(error);
+  }
+}
+async function resetPass({ token, password }) {
+  try {
+    if (!token) return "Error al validar token";
+    jwt.verify(token, process.env.SECRET_JWT, (err, user) => {
+      if (err) return "Token incorrecto o expirado.";
+    });
+    const hashPass = await bcrypt.hash(password, 10);
+    await User.update(
+      {
+        password: hashPass,
+        resetToken: null,
+      },
+      {
+        where: {
+          resetToken: token,
+        },
+      }
+    );
+    return "¡Contraseña actualizada con éxito!";
+  } catch (error) {
+    console.error("ERROR: ", error.message);
     throw new Error(error);
   }
 }
@@ -67,4 +122,6 @@ module.exports = {
   getAllUsers,
   createUser,
   loginUser,
+  forgotPass,
+  resetPass,
 };
