@@ -27,5 +27,9 @@
     flex-direction: row;
     align-items: center;
     position: absolute;
-    margin-top: 450px;
+    margin-top: 400px;
+}
+.logoMueblesLanding{
+    max-width: 100px;
+    
 }
