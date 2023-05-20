@@ -3,10 +3,10 @@ import "./NavBar.modules.css";
 import { useNavigate } from "react-router-dom";
 
 export default function NavBar() {
-  const user = JSON.parse(window.localStorage.getItem("loginData"));
+  const user = JSON.parse(window.localStorage.getItem("userInfo"));
   const navigate = useNavigate();
   const handleLogOut = () => {
-    window.localStorage.removeItem('loginData')
+    window.localStorage.removeItem('userInfo')
     navigate('/')
   };
   return (
