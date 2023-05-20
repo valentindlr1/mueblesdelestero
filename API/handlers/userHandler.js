@@ -6,6 +6,7 @@ const {
   resetPass,
   updateUserInfo,
   setBanStatus,
+  logoutUser,
 } = require("../controllers/userController");
 const {
   sendRegisterEmail,
@@ -45,9 +46,19 @@ async function createUserHandler(req, res) {
 }
 async function loginUserHandler(req, res) {
   try {
-    const { email, password } = req.body;
-    const result = await loginUser({ email, password });
+    const { email, password, tokenId } = req.body;
+    const result = await loginUser({ email, password, tokenId });
     return res.json(result);
+  } catch (error) {
+    console.error("ERROR: ", error.message);
+    return res.status(400).json(error);
+  }
+}
+async function logoutUserHandler(req, res) {
+  try {
+    const { email } = req.body;
+    const result = await logoutUser(email);
+    return res.send(result);
   } catch (error) {
     console.error("ERROR: ", error.message);
     return res.status(400).json(error);
@@ -111,4 +122,5 @@ module.exports = {
   resetPasshandler,
   updateUserInfoHandler,
   setBanStatusHandler,
+  logoutUserHandler,
 };

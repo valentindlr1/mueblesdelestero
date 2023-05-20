@@ -8,12 +8,14 @@ const {
   resetPasshandler,
   updateUserInfoHandler,
   setBanStatusHandler,
+  logoutUserHandler,
 } = require("../handlers/userHandler");
 
 /* GET users listing. */
 router.get("/", getAllUsersHandler);
 router.post("/register", createUserHandler);
 router.post("/login", loginUserHandler);
+router.post("/logout", logoutUserHandler);
 router.get("/forgotPass", forgotPassHandler);
 router.put("/resetPass", resetPasshandler);
 router.put("/update/:id", updateUserInfoHandler);

@@ -33,7 +33,7 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false
       },
-      code: {
+      ZIPcode: {
         type: DataTypes.INTEGER,
         allowNull: false
       },
@@ -55,6 +55,11 @@ module.exports = (sequelize) => {
         type: DataTypes.ENUM("En fabricación", "Abonado", "Señado", "En camino", "Entregado"),
         allowNull: false,
         defaultValue: "Señado"
+      },
+      trackCode: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: ""
       }
     },
     {

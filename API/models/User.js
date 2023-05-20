@@ -65,6 +65,9 @@ module.exports = (sequelize) => {
       resetToken: {
         type: DataTypes.STRING,
       },
+      googleToken: {
+        type: DataTypes.STRING
+      }
     },
     {
       timestamps: false,
