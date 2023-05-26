@@ -7,6 +7,7 @@ const {
   updateUserInfo,
   setBanStatus,
   logoutUser,
+  getUserByEmail,
 } = require("../controllers/userController");
 const {
   sendRegisterEmail,
@@ -17,6 +18,16 @@ async function getAllUsersHandler(req, res) {
   try {
     const users = await getAllUsers();
     return res.status(200).json(users);
+  } catch (error) {
+    console.error("ERROR: ", error.message);
+    return res.status(400);
+  }
+}
+async function getUserByEmailHandler(req, res) {
+  try {
+    const { email } = req.params;
+    const user = await getUserByEmail(email);
+    return res.status(200).json(user);
   } catch (error) {
     console.error("ERROR: ", error.message);
     return res.status(400);
@@ -102,12 +113,12 @@ async function updateUserInfoHandler(req, res) {
     return res.status(400).json(error);
   }
 }
-async function setBanStatusHandler (req, res) {
+async function setBanStatusHandler(req, res) {
   try {
-    const {id} = req.params
-    const {status} = req.body
-    const result = await setBanStatus({status, id})
-    return res.send(result)
+    const { id } = req.params;
+    const { status } = req.body;
+    const result = await setBanStatus({ status, id });
+    return res.send(result);
   } catch (error) {
     console.error("ERROR: ", error.message);
     return res.status(400).json(error);
@@ -123,4 +134,5 @@ module.exports = {
   updateUserInfoHandler,
   setBanStatusHandler,
   logoutUserHandler,
+  getUserByEmailHandler,
 };

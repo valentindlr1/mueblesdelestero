@@ -13,54 +13,65 @@ module.exports = (sequelize) => {
       products: {
         type: DataTypes.ARRAY(DataTypes.JSON),
         allowNull: false,
-        defaultValue: []
+        defaultValue: [],
       },
       buyDate: {
         type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: DataTypes.NOW
+        defaultValue: DataTypes.NOW,
       },
       limitDate: {
-        type: DataTypes.DATE,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       address: {
         type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: "Sucursal"
+        defaultValue: "Sucursal",
       },
       location: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       ZIPcode: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
       },
       province: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       details: {
         type: DataTypes.TEXT,
         allowNull: false,
-        defaultValue: ""
+        defaultValue: "",
       },
       totalPrice: {
         type: DataTypes.DECIMAL,
         allowNull: false,
-        defaultValue: 0
+        defaultValue: 0,
       },
       status: {
-        type: DataTypes.ENUM("En fabricación", "Abonado", "Señado", "En camino", "Entregado"),
+        type: DataTypes.ENUM(
+          "En fabricación",
+          "Abonado",
+          "Señado",
+          "En camino",
+          "Entregado",
+          "Cancelado",
+          "Devolución",
+          "Listo",
+          "Cambio",
+          "Pago pendiente"
+        ),
         allowNull: false,
-        defaultValue: "Señado"
+        defaultValue: "Pago pendiente",
       },
       trackCode: {
         type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: ""
-      }
+        defaultValue: "",
+      },
     },
     {
       timestamps: false,

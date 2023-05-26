@@ -18,6 +18,16 @@ async function getAllUsers() {
     throw new Error(error.message);
   }
 }
+async function getUserByEmail(email) {
+  try {
+    const user = await User.findOne({ where: { email: email } });
+    if (!user) return "Email no registrado";
+    return user;
+  } catch (error) {
+    console.error("ERROR: ", error.message);
+    throw new Error(error.message);
+  }
+}
 async function createUser({
   name,
   lName,
@@ -40,7 +50,7 @@ async function createUser({
       password: hashPass,
       picture,
       isAdmin,
-      googleToken
+      googleToken,
     });
     return newUser;
   } catch (error) {
@@ -55,9 +65,13 @@ async function loginUser({ email, password, tokenId }) {
     if (!user) return "Email no registrado";
     // Then check the password
     const passCheck = await bcrypt.compare(password, user.password);
-    if (tokenId) await User.update({
-      googleToken: tokenId
-    },{where: {email: email}})
+    if (tokenId)
+      await User.update(
+        {
+          googleToken: tokenId,
+        },
+        { where: { email: email } }
+      );
     if (!passCheck) return "Credenciales incorrectas";
     // Check if it's not banned
     if (user.isBan) return "Error al acceder: Usuario baneado.";
@@ -84,7 +98,7 @@ async function logoutUser(email) {
       },
       { where: { email: email } }
     );
-    return "Sesión cerrada"
+    return "Sesión cerrada";
   } catch (error) {
     console.error("ERROR: ", error.message);
     throw new Error(error);
@@ -189,4 +203,5 @@ module.exports = {
   updateUserInfo,
   setBanStatus,
   logoutUser,
+  getUserByEmail,
 };
