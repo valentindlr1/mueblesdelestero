@@ -214,7 +214,7 @@ export default function Landing() {
             <hr />
             {!loadingGoogle ? <button onClick={googleLogin} className="googleBtn">
                 {/* <span className="googleIcon"></span> */}
-                <img src="googleIcon.png" className="googleIcon"></img>
+                <img src="google1.png" className="googleIcon"></img>
                 <span className="googleText">Google</span>
             </button> : loader
 }
