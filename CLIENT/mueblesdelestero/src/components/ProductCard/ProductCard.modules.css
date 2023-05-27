@@ -1,0 +1,41 @@
+img {
+    max-width: 250px;
+    max-height: 250px;
+    margin-top: 10px;
+}
+article {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: start;
+    align-content: center;
+    text-align: center;
+    border: 1px solid black;
+    width: 300px;
+    height: 500px;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+article button {
+    width: 35px;
+    height: 35px;
+}
+.buttons{
+    display: flex;
+    max-width: 100%;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.addToCart{
+    width: 150px;
+    padding: 10px;
+}
+.seeCart{
+    width: 80%;
+    height: 35px;
+}
+.see{
+    justify-content: center;
+}

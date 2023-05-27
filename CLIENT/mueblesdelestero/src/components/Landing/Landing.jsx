@@ -26,6 +26,7 @@ export default function Landing() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const loader = <div className="customloader"></div>;
+  const [loadingGoogle, setLoadingGoogle] = useState(false)
 
   useEffect(() => {
     const user = JSON.parse(window.localStorage.getItem("userInfo"));
@@ -34,7 +35,7 @@ export default function Landing() {
   const googleLogin = useGoogleLogin({
     flow: "auth-code",
     onSuccess: async (codeResponse) => {
-      setLoading(true)
+      setLoadingGoogle(true)
       console.log(codeResponse);
       const tokens = await axios.post("http://localhost:3001/auth/google", {
         code: codeResponse.code,
@@ -68,7 +69,7 @@ export default function Landing() {
             "userInfo",
             JSON.stringify(userInfo.data)
           );
-          setLoading(false)
+          setLoadingGoogle(false)
           navigate("/shop");
         case "Error al acceder: Usuario baneado.":
           setLoading(false)
@@ -182,6 +183,7 @@ export default function Landing() {
                   name="password"
                   value={loginData.password}
                   onChange={handleLoginData}
+                  className="passInput"
                 />
               </label>
              {loading? loader: <button
@@ -203,13 +205,19 @@ export default function Landing() {
                 Acceder
               </button>}
             </form>
+            <div className="textBtns">
             <p>Olvidé mi contraseña</p>
             <p onClick={() => setMenuType("register")}>
               ¿No tienes una cuenta? Regístrate
             </p>
+            </div>
             <hr />
-            <button onClick={googleLogin}>Google</button>
-
+            {!loadingGoogle ? <button onClick={googleLogin} className="googleBtn">
+                {/* <span className="googleIcon"></span> */}
+                <img src="googleIcon.png" className="googleIcon"></img>
+                <span className="googleText">Google</span>
+            </button> : loader
+}
             <hr />
             <button
               onClick={() => navigate("/shop")}
@@ -217,6 +225,7 @@ export default function Landing() {
             >
               Acceder como invitado
             </button>
+            
             <hr />
             <div className="landingBottom">
               <img
@@ -226,7 +235,6 @@ export default function Landing() {
               ></img>
             </div>
             {showMessage}
-            {loading ? loader : ""}
           </div>
         ) : (
           ""
@@ -335,8 +343,9 @@ export default function Landing() {
                 </button>
               )}
             </form>
-            <p onClick={() => setMenuType("login")}>Iniciar Sesión</p>
-
+            <div className="textBtns">
+            <p onClick={() => setMenuType("login")}>¿Ya tienes una cuenta? Iniciar Sesión</p>
+            </div>
             <div className="landingBottom">
               <img
                 src="logo-muebles.webp"

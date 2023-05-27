@@ -1,6 +1,6 @@
 import './App.css'
 import { Route, Routes, useLocation } from 'react-router-dom'
-
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import Landing from './components/Landing/Landing'
 import Shop from './components/Shop/Shop'
 import NavBar from './components/NavBar/NavBar'
