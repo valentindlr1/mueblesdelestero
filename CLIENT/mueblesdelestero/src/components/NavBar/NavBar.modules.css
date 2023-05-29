@@ -51,7 +51,7 @@ width: 18rem;
     display: none;
 }
 #logoNav{
-    height: 4rem;
+    height: 6rem;
 }
 .navBar:hover .navItem h4, .navBar:hover .navItem h2{
     display: flex;
@@ -98,7 +98,7 @@ width: 18rem;
     display: flex;
     color: #F5F1ED;
     margin-left: 1rem;
-    top: 13rem;
+    top: 15rem;
 
 }
 .navBar:hover .cartNumber{
