@@ -26,7 +26,7 @@ export default function Landing() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const loader = <div className="customloader"></div>;
-  const [loadingGoogle, setLoadingGoogle] = useState(false)
+  const [loadingGoogle, setLoadingGoogle] = useState(false);
 
   useEffect(() => {
     const user = JSON.parse(window.localStorage.getItem("userInfo"));
@@ -35,7 +35,7 @@ export default function Landing() {
   const googleLogin = useGoogleLogin({
     flow: "auth-code",
     onSuccess: async (codeResponse) => {
-      setLoadingGoogle(true)
+      setLoadingGoogle(true);
       console.log(codeResponse);
       const tokens = await axios.post("http://localhost:3001/auth/google", {
         code: codeResponse.code,
@@ -69,27 +69,29 @@ export default function Landing() {
             "userInfo",
             JSON.stringify(userInfo.data)
           );
-          setLoadingGoogle(false)
+          setLoadingGoogle(false);
           navigate("/shop");
         case "Error al acceder: Usuario baneado.":
-          setLoading(false)
-          setMessage(tryLogin)
-          setTimeout(()=>{
-            setMessage("")
-          },4000)
+          setLoading(false);
+          setMessage(tryLogin);
+          setTimeout(() => {
+            setMessage("");
+          }, 4000);
       }
-      if (typeof tryLogin !== "string"){
-        setLoading(false)
-        navigate("/shop")
+      if (typeof tryLogin !== "string") {
+        setLoadingGoogle(false);
+        window.localStorage.setItem("userInfo", JSON.stringify(tryLogin));
+        navigate("/shop");
       }
     },
     onError: (errorResponse) => {
-      setLoading(false)
-      setMessage("Error al enviar solicitud")
-      setTimeout(()=>{
-        setMessage("")
-      },4000)
-      console.log(errorResponse)},
+      setLoadingGoogle(false);
+      setMessage("Error al enviar solicitud");
+      setTimeout(() => {
+        setMessage("");
+      }, 4000);
+      console.log(errorResponse);
+    },
     // ux_mode: "redirect",
     // redirect_uri: "/home"
   });
@@ -186,38 +188,45 @@ export default function Landing() {
                   className="passInput"
                 />
               </label>
-             {loading? loader: <button
-                type={
-                  Object.keys(errors).length < 3 &&
-                  !errors.incomplete &&
-                  !errors.password.length
-                    ? "submit"
-                    : "button"
-                }
-                className={
-                  Object.keys(errors).length < 3 &&
-                  !errors.incomplete &&
-                  !errors.password.length
-                    ? "accessButton"
-                    : "accessButtonBlock"
-                }
-              >
-                Acceder
-              </button>}
+              {loading ? (
+                loader
+              ) : (
+                <button
+                  type={
+                    Object.keys(errors).length < 3 &&
+                    !errors.incomplete &&
+                    !errors.password.length
+                      ? "submit"
+                      : "button"
+                  }
+                  className={
+                    Object.keys(errors).length < 3 &&
+                    !errors.incomplete &&
+                    !errors.password.length
+                      ? "accessButton"
+                      : "accessButtonBlock"
+                  }
+                >
+                  Acceder
+                </button>
+              )}
             </form>
             <div className="textBtns">
-            <p>Olvidé mi contraseña</p>
-            <p onClick={() => setMenuType("register")}>
-              ¿No tienes una cuenta? Regístrate
-            </p>
+              <p>Olvidé mi contraseña</p>
+              <p onClick={() => setMenuType("register")}>
+                ¿No tienes una cuenta? Regístrate
+              </p>
             </div>
             <hr />
-            {!loadingGoogle ? <button onClick={googleLogin} className="googleBtn">
+            {!loadingGoogle ? (
+              <button onClick={googleLogin} className="googleBtn">
                 {/* <span className="googleIcon"></span> */}
                 <img src="google1.png" className="googleIcon"></img>
                 <span className="googleText">Google</span>
-            </button> : loader
-}
+              </button>
+            ) : (
+              loader
+            )}
             <hr />
             <button
               onClick={() => navigate("/shop")}
@@ -225,7 +234,7 @@ export default function Landing() {
             >
               Acceder como invitado
             </button>
-            
+
             <hr />
             <div className="landingBottom">
               <img
@@ -344,7 +353,9 @@ export default function Landing() {
               )}
             </form>
             <div className="textBtns">
-            <p onClick={() => setMenuType("login")}>¿Ya tienes una cuenta? Iniciar Sesión</p>
+              <p onClick={() => setMenuType("login")}>
+                ¿Ya tienes una cuenta? Iniciar Sesión
+              </p>
             </div>
             <div className="landingBottom">
               <img
