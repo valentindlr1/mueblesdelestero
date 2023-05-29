@@ -81,7 +81,15 @@ width: 18rem;
     color: #F5F1ED;
     height: 3rem;
     width: 90%;
+    border: none
 }
+
 .sesion:hover{
     background: none;
+}
+.sesion button:hover{
+    border: 1px solid black;
+}
+.navBar:hover .sesion button{
+    font-size: large;
 }
