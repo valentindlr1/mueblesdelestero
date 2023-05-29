@@ -3,6 +3,7 @@ const {
   createProduct,
   updateProduct,
   setStatus,
+  getById,
 } = require("../controllers/productController");
 
 async function getAllProductsHandler(req, res) {
@@ -59,10 +60,21 @@ async function setStatusHandler(req, res) {
     throw new Error(error.message);
   }
 }
+async function getByIdHandler (req, res) {
+  try {
+    const {id} = req.params
+    const result = await getById(id)
+    return res.json(result)
+  } catch (error) {
+    console.error("ERROR: ", error.message);
+    throw new Error(error.message);
+  }
+}
 
 module.exports = {
   getAllProductsHandler,
   createProductHandler,
   updateProductHandler,
   setStatusHandler,
+  getByIdHandler,
 };

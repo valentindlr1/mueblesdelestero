@@ -6,15 +6,20 @@ import ProductCard from "../ProductCard/ProductCard";
 export default function Shop() {
   const [products, setProducts] = useState([]);
   const loader = <div className="customloader"></div>;
-  const showProducts = products.map((p, index) => (
-    <ProductCard
-      key={index}
-      name={p.name}
-      price={p.price}
-      picture={p.picture}
-      id={p.id}
-    />
-  ));
+  const showProducts = () => {
+    if (products) {
+      if (!products.length) return "Error al cargar el catálogo."
+      return products.map((p, index) => (
+        <ProductCard
+          key={index}
+          name={p.name}
+          price={p.price}
+          picture={p.picture}
+          id={p.id}
+        />
+      ));
+    } else return loader
+  };
 
   useEffect(() => {
     axios
@@ -24,8 +29,10 @@ export default function Shop() {
   }, []);
   return (
     <div className="shop">
+      <section className="products">
       <h1>Catálogo</h1>
-      <div>{showProducts.length ? showProducts : loader}</div>
+      <div className="cards">{showProducts()}</div>
+      </section>
     </div>
   );
 }

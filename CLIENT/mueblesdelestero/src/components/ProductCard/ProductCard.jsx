@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "./ProductCard.modules.css";
-import "react-bootstrap"
+// import "react-bootstrap"
+import { Link, useNavigate } from "react-router-dom";
 
 export default function ProductCard({ name, price, picture, id }) {
   const [quantity, setQuantity] = useState(1);
   const [isInCart, setIsInCart] = useState(false);
   const [flagAdd, setFlagAdd] = useState(false);
+  const navigate = useNavigate()
+
   function handleQuantity(num) {
     if (quantity + num > 0) {
       setQuantity(quantity + num);
@@ -37,12 +40,14 @@ export default function ProductCard({ name, price, picture, id }) {
     }
   }, [flagAdd]);
   return (
-    <article >
-      <img src={picture} alt="image" />
-      <div>
+    <article>
+      
+      <img src={picture} alt="image" title="Ver detalle" onClick={()=>navigate("/shop/detail/"+id)}/>
+      <div className="textDetail" onClick={()=>navigate("/shop/detail/"+id)}>
         <h3>{name}</h3>
         <h4>${price}</h4>
       </div>
+      
       {!isInCart ? (
         <div className="buttons">
           <button onClick={() => handleQuantity(-1)}>-</button>
@@ -60,6 +65,7 @@ export default function ProductCard({ name, price, picture, id }) {
           <button className="seeCart">Ver en el Carrito</button>
         </div>
       )}
+      
     </article>
   );
 }

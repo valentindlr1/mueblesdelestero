@@ -32,8 +32,6 @@
     width: 500px;
     height: 700px;
     max-width: 500px;
-    overflow: scroll;
-    overflow-x: hidden;
     background: rgb(218,210,188,0.9);
 }
 .landingForm{
@@ -64,6 +62,7 @@
     border: 1px solid black;
     border-radius: 3px;
     margin-bottom: 10px;
+    transition: background-color 0.35s;
 }
 .accessButton:hover{
     background-color: #abb8d4;
@@ -86,11 +85,11 @@
     border-left: none;
     border-right: none;
     background: none;
-    border-bottom: 1px solid #70798C;
+    border-bottom: 1px solid #9ba7c0;
     padding: 2px;
 }
 .landingForm input:hover{
-    border-bottom: 1px solid #b3c1dd;
+    border-bottom: 1px solid #656d7e;
 }
 .landingForm label{
     display: flex;

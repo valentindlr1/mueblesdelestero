@@ -10,15 +10,29 @@ article {
     justify-content: start;
     align-content: center;
     text-align: center;
-    border: 1px solid black;
+    border: 1px solid rgba(0, 0, 0, 0.18);
     width: 300px;
     height: 500px;
-    margin-left: 30px;
-    margin-right: 30px;
+    transition: border-color 0.3s;
+    cursor: pointer;
+    background-color: #F5F1ED;
+    margin-top: 2rem;
+}
+article:hover{
+    border-color: black;
 }
 article button {
     width: 35px;
     height: 35px;
+    background-color: none;
+    transition: background-color 200ms
+}
+article button:hover{
+    background-color: #fff5d8ba;
+}
+.textDetail {
+    text-decoration: none;
+    color: inherit;
 }
 .buttons{
     display: flex;
@@ -31,6 +45,7 @@ article button {
 .addToCart{
     width: 150px;
     padding: 10px;
+    align-items: center;
 }
 .seeCart{
     width: 80%;

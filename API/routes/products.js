@@ -5,9 +5,11 @@ const {
   createProductHandler,
   updateProductHandler,
   setStatusHandler,
+  getByIdHandler,
 } = require("../handlers/productHandler");
 
 router.get("/", getAllProductsHandler);
+router.get("/:id", getByIdHandler);
 router.post("/", createProductHandler);
 router.put("/:id", updateProductHandler);
 router.put("/status/:id", setStatusHandler);

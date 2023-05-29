@@ -53,10 +53,21 @@ async function setStatus({ id, status }) {
     throw new Error(error.message);
   }
 }
+async function getById (id) {
+  try {
+    const product = await Product.findByPk(id)
+    if (!product) return "Error al buscar el producto"
+    return product
+  } catch (error) {
+    console.error("ERROR: ", error.message);
+    throw new Error(error.message);
+  }
+}
 
 module.exports = {
   getAllProducts,
   createProduct,
   updateProduct,
   setStatus,
+  getById,
 };
