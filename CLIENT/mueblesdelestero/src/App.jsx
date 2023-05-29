@@ -5,6 +5,7 @@ import Landing from './components/Landing/Landing'
 import Shop from './components/Shop/Shop'
 import NavBar from './components/NavBar/NavBar'
 import ProductDetail from './components/ProductDetail/ProductDetail'
+import Account from './components/Account/Account'
 
 function App() {
   const location = useLocation()
@@ -16,6 +17,7 @@ function App() {
         <Route path='/' element={<Landing/>}/>
         <Route path='/shop/detail/:id' element={<ProductDetail/>}/>
         <Route path='/shop' element={<Shop/>}/>
+        <Route path='/account' element={<Account/>}/>
       </Routes>
     </div>
   )

@@ -1,0 +1,23 @@
+.accountContainer{
+    width: 100vw;
+    height: 100vh;
+    background-color: antiquewhite;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+}
+.accountContainer header{
+    text-align: center;
+}
+.accountSesion{
+    background-color: #A99985;
+    color: #F5F1ED;
+    height: 3rem;
+    width: 12rem;
+    border: none;
+    font-size: large;
+}
+.accountSesion:hover{
+    border: 1px solid black;
+}
