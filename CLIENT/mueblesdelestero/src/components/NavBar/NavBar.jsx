@@ -1,5 +1,6 @@
 import React from "react";
 import "./NavBar.modules.css";
+import {useSelector} from "react-redux"
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMessage} from "@fortawesome/free-regular-svg-icons";
@@ -17,6 +18,7 @@ export default function NavBar() {
     window.localStorage.removeItem("userInfo");
     navigate("/");
   };
+  const cartNumber = useSelector(state => state.cartNumber)
   return (
     <div className="navBar">
       <ul className="navButtons">
@@ -29,6 +31,7 @@ export default function NavBar() {
           <h4>Mi cuenta</h4>
         </li>
         <li className="navItem" onClick={()=>navigate("/cart")}>
+          <p className="cartNumber">{cartNumber > 0 && cartNumber}</p>
           {cart}
           <h4>Carrito</h4>
         </li>
