@@ -8,6 +8,7 @@ import { BrowserRouter } from "react-router-dom";
 import axios from "axios";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 const clientId = "99007043570-iuu55f8hkpg3qcil543v3v9b1cbjii2v.apps.googleusercontent.com"
+axios.defaults.baseURL = "http://localhost:3001"
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

@@ -23,7 +23,7 @@ export default function Shop() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/products")
+      .get("/products")
       .then((res) => res.data)
       .then((prods) => setProducts(prods));
   }, []);

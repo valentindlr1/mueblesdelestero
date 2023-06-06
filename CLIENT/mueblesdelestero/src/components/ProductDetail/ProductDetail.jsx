@@ -29,7 +29,7 @@ export default function ProductDetail() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/products/" + id)
+      .get("/products/" + id)
       .then((res) => res.data)
       .then((info) => {
         setDetailData(info);

@@ -37,7 +37,7 @@ export default function Landing() {
     onSuccess: async (codeResponse) => {
       setLoadingGoogle(true);
       console.log(codeResponse);
-      const tokens = await axios.post("http://localhost:3001/auth/google", {
+      const tokens = await axios.post("/auth/google", {
         code: codeResponse.code,
       });
       const userInfo = await axios.get(
@@ -47,7 +47,7 @@ export default function Landing() {
       console.log("User Info: ", userInfo);
       console.log("Tokens: ", tokens);
       const tryLogin = await axios
-        .post("http://localhost:3001/users/login", {
+        .post("/users/login", {
           email: userInfo.data.email,
           password: userInfo.data.given_name + "1",
         })
@@ -55,7 +55,7 @@ export default function Landing() {
         .catch((error) => console.error("ERROR: ", error.message));
       switch (tryLogin) {
         case "Email no registrado":
-          await axios.post("http://localhost:3001/users/register", {
+          await axios.post("/users/register", {
             name: userInfo.data.given_name,
             lName: userInfo.data.family_name || " ",
             email: userInfo.data.email,
@@ -122,7 +122,7 @@ export default function Landing() {
     e.preventDefault();
     setLoading(true);
     axios
-      .post("http://localhost:3001/users/login", loginData)
+      .post("/users/login", loginData)
       .then((res) => res.data)
       .then((info) => {
         if (typeof info === "string") {
@@ -143,7 +143,7 @@ export default function Landing() {
     e.preventDefault();
     setLoading(true);
     axios
-      .post("http://localhost:3001/users/register", {
+      .post("/users/register", {
         ...registerData,
         picture:
           "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
