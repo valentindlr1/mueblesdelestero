@@ -1,4 +1,4 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes, DATE } = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define(
@@ -25,6 +25,15 @@ module.exports = (sequelize) => {
       description: {
         type: DataTypes.TEXT,
         allowNull: false
+      },
+      category: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      status: {
+        type: DataTypes.ENUM("active", "paused"),
+        allowNull: false,
+        defaultValue: "active"
       }
     },
     {

@@ -1,0 +1,74 @@
+.accountContainer{
+    width: 100vw;
+    height: 100vh;
+    background-color: antiquewhite;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+}
+.accountContainer header{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.customloader {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #0077ff;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+.accountSesion{
+    background-color: #A99985;
+    color: #F5F1ED;
+    height: 3rem;
+    width: 12rem;
+    border: none;
+    font-size: large;
+}
+.accountSesion:hover{
+    border: 1px solid black;
+}
+.userInfo{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 15rem;
+
+}
+.userInfo label{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.userInfo input{
+    height: 1.1rem;
+    width: 7rem;
+}
+.formContainer{
+    display: flex;
+    flex-direction: column;
+}
+.userPic{
+    border-radius: 999999px;
+    height: 125px;
+    width: 125px;
+    margin: 5px 0;
+}
+.editUserButtons{
+    margin: 10px 0;
+}

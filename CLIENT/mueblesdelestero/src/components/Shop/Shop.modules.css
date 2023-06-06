@@ -1,4 +1,54 @@
 .shop{
+  display: flex;
     background-color: antiquewhite;
     width: 100vw;
+    height: 100vh;
+    flex-direction: column;
+    align-items: flex-start;
 }
+.customloader {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #0077ff;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .products{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-content: center;
+    flex-wrap: wrap;
+    text-align: center;
+  }
+  
+  .cards{
+    display: flex;
+    flex-direction: row;
+    max-width: 1105px;
+    max-height: 700px;
+    overflow-y:scroll;
+    overflow-x: none;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .cards::-webkit-scrollbar{
+    width: 12px;
+  }
+  .cards::-webkit-scrollbar-track{
+    background: #b8c6e5;
+  }
+  .cards::-webkit-scrollbar-thumb{
+    background: #70798C;
+  }

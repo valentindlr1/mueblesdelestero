@@ -1,0 +1,72 @@
+.customloader {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #0077ff;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  .detailContainer{
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    background-color: antiquewhite;
+  }
+  .detail{
+    display: flex;
+    flex-direction: row;
+    width: 900px;
+    height: 400px;
+    background-color: #F5F1ED;
+    padding:2rem;
+    margin-top: 2rem;
+  }
+  .detail img {
+    max-width: 400px;
+    max-height: 400px;
+    margin: 0px;
+  }
+  .info{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    margin-left: 50px;
+  }
+  .infoButtons{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    align-content: flex-end;
+    height: 100%;
+  }
+  .infoButtons button{
+    width: 35px;
+    height: 35px;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  #addToCart{
+    width: 300px;
+    height: 35px;
+    margin-bottom: 10px;
+  }
+  .addToCart{
+    display:flex;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    justify-content: center;
+  }

@@ -2,11 +2,107 @@
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    background-color: rgba(122, 122, 122, 0.614);
-    width: 400px;
-    height: 800px;
+    width: 6rem;
+    height: 100%;
     margin: 0px;
-    position: sticky;
-    top: 0px;
-    left: 0px;
+    padding: 0px;
+    position: fixed;
+    /* From https://css.glass */
+background: rgba(255, 255, 255, 0.2);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(5px);
+/* border: 1px solid rgba(255, 255, 255, 0.3); */
+transition: width 180ms ease;
+}
+.navBar:hover{
+width: 18rem;
+
+}
+.navButtons{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    margin-top: 2rem;
+}
+.navItem{
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    color: #A99985;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 200ms;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+.navItem:last-child{
+    margin-top: auto;
+    margin-bottom: 1rem;
+}
+.navItem h4, h2{
+    display: none;
+}
+#logoNav{
+    height: 6rem;
+}
+.navBar:hover .navItem h4, .navBar:hover .navItem h2{
+    display: flex;
+    font-size: 20px;
+    margin: 0;
+    margin-left: auto;
+    margin-right: 2rem;
+    align-items: center;
+}
+
+.navBar:hover .navItem{
+    justify-content: center;
+    align-items: center;
+}
+.icon{
+    width: 4rem;
+}
+.navBar:hover .icon{
+    min-width: 2rem;
+    width: 4rem;
+}
+.navItem:hover{
+    background: #DAD2BC;
+}
+.navItem button{
+    background-color: #A99985;
+    color: #F5F1ED;
+    height: 3rem;
+    width: 90%;
+    border: none
+}
+
+.sesion:hover{
+    background: none;
+}
+.sesion button:hover{
+    border: 1px solid black;
+}
+.navBar:hover .sesion button{
+    font-size: large;
+}
+.cartNumber{
+    position: absolute;
+    display: flex;
+    color: #F5F1ED;
+    margin-left: 1rem;
+    top: 15rem;
+
+}
+.navBar:hover .cartNumber{
+    display: flex;
+    left: 1.5rem;
+    margin-bottom: 2.5rem;
 }
