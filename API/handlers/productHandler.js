@@ -4,6 +4,7 @@ const {
   updateProduct,
   setStatus,
   getById,
+  getCartProducts,
 } = require("../controllers/productController");
 
 async function getAllProductsHandler(req, res) {
@@ -67,6 +68,19 @@ async function getByIdHandler (req, res) {
     return res.json(result)
   } catch (error) {
     console.error("ERROR: ", error.message);
+    throw new Error(error);
+  }
+}
+async function getCartProductsHandler (req, res) {
+  try {
+    const {IDs} = req.params
+    if(IDs){
+      const result = await getCartProducts(JSON.parse(IDs))
+      return res.json(result)
+    }
+    return res.status(302).send("error: IDs undefined")
+  } catch (error) {
+    console.error("ERROR: ", error.message);
     throw new Error(error.message);
   }
 }
@@ -77,4 +91,5 @@ module.exports = {
   updateProductHandler,
   setStatusHandler,
   getByIdHandler,
+  getCartProductsHandler,
 };

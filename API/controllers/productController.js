@@ -63,6 +63,19 @@ async function getById (id) {
     throw new Error(error.message);
   }
 }
+async function getCartProducts (IDs) {
+  try {
+    const productsInfo = await Promise.all(IDs.map(async (id)=>{
+      const product = await Product.findByPk(id)
+      if (product) return product
+    }))
+    return productsInfo
+    
+  } catch (error) {
+    console.error("ERROR: ", error.message);
+    throw new Error(error.message);
+  }
+}
 
 module.exports = {
   getAllProducts,
@@ -70,4 +83,5 @@ module.exports = {
   updateProduct,
   setStatus,
   getById,
+  getCartProducts,
 };

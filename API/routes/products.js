@@ -6,9 +6,11 @@ const {
   updateProductHandler,
   setStatusHandler,
   getByIdHandler,
+  getCartProductsHandler,
 } = require("../handlers/productHandler");
 
 router.get("/", getAllProductsHandler);
+router.get("/cart/:IDs", getCartProductsHandler);
 router.get("/:id", getByIdHandler);
 router.post("/", createProductHandler);
 router.put("/:id", updateProductHandler);

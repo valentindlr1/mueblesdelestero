@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function Account() {
-  const { user } = JSON.parse(window.localStorage.getItem("userInfo"));
+  const userInfo = JSON.parse(window.localStorage.getItem("userInfo"));
+  const user = userInfo ? userInfo.user : false;
   const [userData, setUserData] = useState({});
   const navigate = useNavigate();
   const [editing, setEditing] = useState(false);
@@ -14,7 +15,7 @@ export default function Account() {
     dni: "",
     phone: "",
   });
-  const [message, setMessage] = useState("")
+  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const loader = <div className="customloader"></div>;
 
@@ -61,32 +62,37 @@ export default function Account() {
 
   const handleEditSubmit = (e) => {
     e.preventDefault();
-    setLoading(true)
-    axios.put("/users/update/" + userData.id, {
-      name: editData.name.length ? editData.name : userData.name,
-      lName: editData.lName.length ? editData.lName : userData.lName,
-      dni: editData.dni.length ? editData.dni : userData.dni,
-      phone: editData.phone.length ? editData.phone : userData.phone,
-      picture: userData.picture
-    })
-    .then(res=> res.data)
-    .then(data => {
-      setMessage(data)
-      setEditData({
-        name: "",
-        lName: "",
-        dni: "",
-        phone: "",
+    setLoading(true);
+    axios
+      .put("/users/update/" + userData.id, {
+        name: editData.name.length ? editData.name : userData.name,
+        lName: editData.lName.length ? editData.lName : userData.lName,
+        dni: editData.dni.length ? editData.dni : userData.dni,
+        phone: editData.phone.length ? editData.phone : userData.phone,
+        picture: userData.picture,
       })
-      setEditing(false)
-      setLoading(false)
-      setTimeout(()=>{setMessage("")},3000)
-    })
-    .catch(error => {
-      setLoading(false)
-      setMessage("Error al actualizar los datos")
-      setTimeout(()=>{setMessage("")},3000)
-    })
+      .then((res) => res.data)
+      .then((data) => {
+        setMessage(data);
+        setEditData({
+          name: "",
+          lName: "",
+          dni: "",
+          phone: "",
+        });
+        setEditing(false);
+        setLoading(false);
+        setTimeout(() => {
+          setMessage("");
+        }, 3000);
+      })
+      .catch((error) => {
+        setLoading(false);
+        setMessage("Error al actualizar los datos");
+        setTimeout(() => {
+          setMessage("");
+        }, 3000);
+      });
   };
   return (
     <main className="accountContainer">
@@ -146,9 +152,13 @@ export default function Account() {
                   onChange={handleEditData}
                 ></input>
               </label>
-              {loading ? loader : <button type="submit" className="editUserButtons">
-                Guardar
-              </button>}
+              {loading ? (
+                loader
+              ) : (
+                <button type="submit" className="editUserButtons">
+                  Guardar
+                </button>
+              )}
             </form>
           ) : (
             <form className="userInfo">
@@ -170,11 +180,17 @@ export default function Account() {
               </label>
             </form>
           ))}
-        <button type="button" onClick={toggleEdit} className="editUserButtons">
-          {!editing ? "Editar" : "Cancelar Edición"}
-        </button>
+        {user && (
+          <button
+            type="button"
+            onClick={toggleEdit}
+            className="editUserButtons"
+          >
+            {!editing ? "Editar" : "Cancelar Edición"}
+          </button>
+        )}
       </section>
-      {message.length ? <span>{message}</span>:""}
+      {message.length ? <span>{message}</span> : ""}
     </main>
   );
 }
