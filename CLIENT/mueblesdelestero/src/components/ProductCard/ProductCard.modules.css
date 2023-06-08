@@ -33,6 +33,7 @@ article button:hover{
 .textDetail {
     text-decoration: none;
     color: inherit;
+    height: 10rem;
 }
 .buttons{
     display: flex;
@@ -41,6 +42,7 @@ article button:hover{
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    margin: 0 10px;
 }
 .addToCart{
     width: 150px;

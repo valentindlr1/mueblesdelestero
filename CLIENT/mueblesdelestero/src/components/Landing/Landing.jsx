@@ -50,6 +50,7 @@ export default function Landing() {
         .post("/users/login", {
           email: userInfo.data.email,
           password: userInfo.data.given_name + "1",
+          tokenId: tokens.data.expiry_date,
         })
         .then((res) => res.data)
         .catch((error) => console.error("ERROR: ", error.message));
@@ -80,7 +81,7 @@ export default function Landing() {
       }
       if (typeof tryLogin !== "string") {
         setLoadingGoogle(false);
-        window.localStorage.setItem("userInfo", JSON.stringify(tryLogin));
+        window.localStorage.setItem("userInfo", JSON.stringify(tryLogin.user));
         navigate("/shop");
       }
     },
@@ -132,7 +133,7 @@ export default function Landing() {
             setMessage("");
           }, 4000);
         } else {
-          window.localStorage.setItem("userInfo", JSON.stringify(info));
+          window.localStorage.setItem("userInfo", JSON.stringify(info.user));
           setLoading(false);
           navigate("/shop");
         }

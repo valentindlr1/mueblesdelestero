@@ -1,7 +1,7 @@
 import { CART_QUANTITY } from "./actions";
 
 const initialState = {
-  cartNumber: 0
+  cartNumber: 0,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -9,8 +9,8 @@ const rootReducer = (state = initialState, action) => {
     case CART_QUANTITY:
       return {
         ...state,
-        cartNumber: action.payload
-      }
+        cartNumber: action.payload,
+      };
     default:
       return { ...state };
   }

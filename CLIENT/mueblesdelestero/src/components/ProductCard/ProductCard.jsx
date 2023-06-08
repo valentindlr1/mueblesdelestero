@@ -9,8 +9,8 @@ export default function ProductCard({ name, price, picture, id }) {
   const [quantity, setQuantity] = useState(1);
   const [isInCart, setIsInCart] = useState(false);
   const [flagAdd, setFlagAdd] = useState(false);
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   function handleQuantity(num) {
     if (quantity + num > 0) {
@@ -40,18 +40,25 @@ export default function ProductCard({ name, price, picture, id }) {
           setIsInCart(true);
         }
       });
-      dispatch(cartQuantity(cart.length))
+      dispatch(cartQuantity(cart.length));
     }
   }, [flagAdd]);
   return (
     <article>
-      
-      <img src={picture} alt="image" title="Ver detalle" onClick={()=>navigate("/shop/detail/"+id)}/>
-      <div className="textDetail" onClick={()=>navigate("/shop/detail/"+id)}>
+      <img
+        src={picture}
+        alt="image"
+        title="Ver detalle"
+        onClick={() => navigate("/shop/detail/" + id)}
+      />
+      <div
+        className="textDetail"
+        onClick={() => navigate("/shop/detail/" + id)}
+      >
         <h3>{name}</h3>
         <h4>${price}</h4>
       </div>
-      
+
       {!isInCart ? (
         <div className="buttons">
           <button onClick={() => handleQuantity(-1)}>-</button>
@@ -66,10 +73,11 @@ export default function ProductCard({ name, price, picture, id }) {
         </div>
       ) : (
         <div className="buttons see">
-          <button className="seeCart">Ver en el Carrito</button>
+          <button className="seeCart" onClick={() => navigate("/cart")}>
+            Ver en el Carrito
+          </button>
         </div>
       )}
-      
     </article>
   );
 }

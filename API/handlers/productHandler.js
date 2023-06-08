@@ -13,7 +13,7 @@ async function getAllProductsHandler(req, res) {
     return res.json(products);
   } catch (error) {
     console.error("ERROR: ", error.message);
-    throw new Error(error.message);
+    return res.status(400).json({error: error.message})
   }
 }
 async function createProductHandler(req, res) {
@@ -29,7 +29,7 @@ async function createProductHandler(req, res) {
     return res.json(product);
   } catch (error) {
     console.error("ERROR: ", error.message);
-    throw new Error(error.message);
+    return res.status(400).json({error: error.message})
   }
 }
 async function updateProductHandler(req, res) {
@@ -47,7 +47,7 @@ async function updateProductHandler(req, res) {
     return res.json(product);
   } catch (error) {
     console.error("ERROR: ", error.message);
-    throw new Error(error.message);
+    return res.status(400).json({error: error.message})
   }
 }
 async function setStatusHandler(req, res) {
@@ -58,7 +58,7 @@ async function setStatusHandler(req, res) {
     return res.send(response);
   } catch (error) {
     console.error("ERROR: ", error.message);
-    throw new Error(error.message);
+    return res.status(400).json({error: error.message})
   }
 }
 async function getByIdHandler (req, res) {
@@ -68,20 +68,20 @@ async function getByIdHandler (req, res) {
     return res.json(result)
   } catch (error) {
     console.error("ERROR: ", error.message);
-    throw new Error(error);
+    return res.status(400).json({error: error.message})
   }
 }
 async function getCartProductsHandler (req, res) {
   try {
-    const {IDs} = req.params
-    if(IDs){
-      const result = await getCartProducts(JSON.parse(IDs))
+    const {items} = req.params
+    if(items){
+      const result = await getCartProducts(JSON.parse(items))
       return res.json(result)
     }
     return res.status(302).send("error: IDs undefined")
   } catch (error) {
     console.error("ERROR: ", error.message);
-    throw new Error(error.message);
+    return res.status(400).json({error: error.message})
   }
 }
 

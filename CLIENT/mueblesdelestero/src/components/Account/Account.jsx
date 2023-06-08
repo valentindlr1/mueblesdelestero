@@ -5,7 +5,7 @@ import axios from "axios";
 
 export default function Account() {
   const userInfo = JSON.parse(window.localStorage.getItem("userInfo"));
-  const user = userInfo ? userInfo.user : false;
+  const user = userInfo ? userInfo : false;
   const [userData, setUserData] = useState({});
   const navigate = useNavigate();
   const [editing, setEditing] = useState(false);

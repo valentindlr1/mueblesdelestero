@@ -1,0 +1,41 @@
+.cartItem{
+    display: flex;
+    flex-direction: column;
+    width: 30rem;
+    height: 12rem;
+}
+.cartItem header{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    margin-top: 10px;
+}
+.itemPicture{
+    border-radius: 10px;
+    width: 100px;
+    margin: 5px;
+}
+.itemPriceQuantity{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+.itemPriceQuantity div{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 150px;
+    margin: 0 30px;
+}
+.itemPriceQuantity h3{
+    margin: 0 30px;
+}
+.deleteItem{
+    background-color: rgba(255, 0, 0, 0.432);
+
+    &:hover{
+        background-color: rgba(255, 0, 0, 0.629);
+    }
+}

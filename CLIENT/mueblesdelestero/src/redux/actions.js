@@ -1,8 +1,8 @@
-export const CART_QUANTITY = "CART_QUANTITY"
+export const CART_QUANTITY = "CART_QUANTITY";
 
-export function cartQuantity (num) {
-    return {
-        type: CART_QUANTITY,
-        payload: num
-    }
+export function cartQuantity(num) {
+  return {
+    type: CART_QUANTITY,
+    payload: num,
+  };
 }

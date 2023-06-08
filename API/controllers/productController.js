@@ -63,16 +63,17 @@ async function getById (id) {
     throw new Error(error.message);
   }
 }
-async function getCartProducts (IDs) {
+async function getCartProducts (items) {
   try {
-    const productsInfo = await Promise.all(IDs.map(async (id)=>{
-      const product = await Product.findByPk(id)
-      if (product) return product
+    const productsInfo = await Promise.all(items.map(async (item)=>{
+      const product = {...(await Product.findByPk(item.id)).dataValues, quantity: item.quantity}
+      if (product.name) return product
+      throw new Error("Item ID non-existent")
     }))
     return productsInfo
     
   } catch (error) {
-    console.error("ERROR: ", error.message);
+    console.error("ERROR controller: ", error.message);
     throw new Error(error.message);
   }
 }
