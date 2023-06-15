@@ -204,6 +204,16 @@ async function setBanStatus({ status, id }) {
     throw new Error(error);
   }
 }
+async function getUserById (id) {
+  try {
+    const user = await User.findByPk(id)
+    if (!user) return {error: "Error al cargar los datos de usuario"}
+    return user
+  } catch (error) {
+    console.error("ERROR: ", error.message);
+    throw new Error(error);
+  }
+}
 
 module.exports = {
   getAllUsers,
@@ -215,4 +225,5 @@ module.exports = {
   setBanStatus,
   logoutUser,
   getUserByEmail,
+  getUserById,
 };

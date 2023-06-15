@@ -8,6 +8,7 @@ const {
   setBanStatus,
   logoutUser,
   getUserByEmail,
+  getUserById,
 } = require("../controllers/userController");
 const {
   sendRegisterEmail,
@@ -124,6 +125,16 @@ async function setBanStatusHandler(req, res) {
     return res.status(400).json(error);
   }
 }
+async function getUserByIdHandler (req, res) {
+  try {
+    const {id} = req.params
+    const response = await getUserById(id)
+    return res.json(response)
+  } catch (error) {
+    console.error("ERROR: ", error.message);
+    return res.status(400).json(error);
+  }
+}
 
 module.exports = {
   getAllUsersHandler,
@@ -135,4 +146,5 @@ module.exports = {
   setBanStatusHandler,
   logoutUserHandler,
   getUserByEmailHandler,
+  getUserByIdHandler,
 };

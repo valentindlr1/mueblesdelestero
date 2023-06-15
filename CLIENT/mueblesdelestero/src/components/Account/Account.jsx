@@ -20,12 +20,13 @@ export default function Account() {
   const loader = <div className="customloader"></div>;
 
   useEffect(() => {
-    axios
-      .get("/users/" + user.email)
-      // TODO: crear getById en back
-      .then((res) => res.data)
-      .then((data) => setUserData(data))
-      .catch((error) => console.error(error.message));
+    if (user && user.email){
+      axios
+        .get("/users/" + user.email)
+        .then((res) => res.data)
+        .then((data) => setUserData(data))
+        .catch((error) => console.error(error.message));
+    }
   }, [editing]);
 
   function toggleEdit() {
