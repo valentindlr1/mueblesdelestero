@@ -9,6 +9,7 @@ article {
     flex-direction: column;
     justify-content: start;
     align-content: center;
+    align-items: center;
     text-align: center;
     border: 1px solid rgba(0, 0, 0, 0.18);
     width: 300px;
@@ -16,7 +17,6 @@ article {
     transition: border-color 0.3s;
     cursor: pointer;
     background-color: #F5F1ED;
-    margin-top: 2rem;
 }
 article:hover{
     border-color: black;
@@ -55,4 +55,5 @@ article button:hover{
 }
 .see{
     justify-content: center;
+    width: 100%;
 }

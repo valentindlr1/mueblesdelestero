@@ -36,12 +36,13 @@
   .cards{
     display: flex;
     flex-direction: row;
-    max-width: 1105px;
+    width: 1105px;
     max-height: 700px;
     overflow-y:scroll;
     overflow-x: none;
     flex-wrap: wrap;
-    justify-content: space-between;
+    padding: 1rem 0rem 0rem 4rem;
+    gap: 4rem;
   }
   .cards::-webkit-scrollbar{
     width: 12px;
