@@ -360,7 +360,7 @@ export default function Landing() {
             </div>
             <div className="landingBottom">
               <img
-                src="logo-muebles.webp"
+                src="logo-muebles.png"
                 alt="logo"
                 className="logoMueblesLanding"
               ></img>
