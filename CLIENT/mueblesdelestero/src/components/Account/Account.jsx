@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Account.modules.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import NotifMessage from "../NotifMessage/NotifMessage";
 
 export default function Account() {
   const userInfo = JSON.parse(window.localStorage.getItem("userInfo"));
@@ -191,7 +192,13 @@ export default function Account() {
           </button>
         )}
       </section>
-      {message.length ? <span>{message}</span> : ""}
+      {message.length ? <NotifMessage message={message}/> : ""}
+      <button onClick={()=>{
+        setMessage("MENSAJE DE PRUEBA")
+        setTimeout(()=>{
+          setMessage("")
+        },4000)
+      }}>mostrar mensaje prueba</button>
     </main>
   );
 }
