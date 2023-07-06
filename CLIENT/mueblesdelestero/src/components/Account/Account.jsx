@@ -86,14 +86,14 @@ export default function Account() {
         setLoading(false);
         setTimeout(() => {
           setMessage("");
-        }, 3000);
+        }, 3990);
       })
       .catch((error) => {
         setLoading(false);
         setMessage("Error al actualizar los datos");
         setTimeout(() => {
           setMessage("");
-        }, 3000);
+        }, 3990);
       });
   };
   return (
@@ -197,7 +197,7 @@ export default function Account() {
         setMessage("MENSAJE DE PRUEBA")
         setTimeout(()=>{
           setMessage("")
-        },4000)
+        },3990)
       }}>mostrar mensaje prueba</button>
     </main>
   );

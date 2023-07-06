@@ -26,7 +26,7 @@ export default function Cart() {
           setMessage("Error al cargar el carrito");
           setTimeout(() => {
             setMessage("");
-          }, 3000);
+          }, 3990);
         });
     }
   }, [cartNumber]);

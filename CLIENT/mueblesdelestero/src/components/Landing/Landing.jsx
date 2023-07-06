@@ -77,7 +77,7 @@ export default function Landing() {
           setMessage(tryLogin);
           setTimeout(() => {
             setMessage("");
-          }, 4000);
+          }, 3990);
       }
       if (typeof tryLogin !== "string") {
         setLoadingGoogle(false);
@@ -90,7 +90,7 @@ export default function Landing() {
       setMessage("Error al enviar solicitud");
       setTimeout(() => {
         setMessage("");
-      }, 4000);
+      }, 3990);
       console.log(errorResponse);
     },
     // ux_mode: "redirect",
@@ -131,7 +131,7 @@ export default function Landing() {
           setMessage(info);
           setTimeout(() => {
             setMessage("");
-          }, 4000);
+          }, 3990);
         } else {
           window.localStorage.setItem("userInfo", JSON.stringify(info.user));
           setLoading(false);
@@ -155,7 +155,7 @@ export default function Landing() {
         setMessage(info);
         setTimeout(() => {
           setMessage("");
-        }, 4000);
+        }, 3990);
       })
       .catch((error) => console.error("ERROR: ", error.message));
   };

@@ -11,9 +11,25 @@
     border-radius: 15px;
     margin: 2rem;
     background-color: rgba(255, 255, 255, 0.927);
+    animation: slide 4s linear
 }
 @keyframes slide {
-    
+    0% {
+        transform: translateY(-100%);
+        opacity: 0%;
+    }
+    5%{
+        transform: translateY(0%);
+        opacity: 100%;
+    }
+    95%{
+        transform: translateY(0%);
+        opacity: 100%;
+    }
+    100%{
+        transform: translateY(100%);
+        opacity: 0%;
+    }
 }
 .notifMessage{
     margin: 0;
