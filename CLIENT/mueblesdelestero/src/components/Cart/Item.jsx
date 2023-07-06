@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Item.modules.css";
 import { useNavigate } from "react-router-dom";
 
-export default function CartItem({ name, price, picture, quantity, id }) {
+export default function CartItem({
+  name,
+  price,
+  picture,
+  quantity,
+  id,
+  deleteItem,
+}) {
   const navigate = useNavigate();
+  const [actualQuantity, setActualQuantity] = useState(quantity);
+
+  function handleQuantity(num) {
+    if (actualQuantity + num > 0) {
+      setActualQuantity(actualQuantity + num);
+    }
+  }
 
   return (
     <article className="cartItem">
@@ -16,12 +30,17 @@ export default function CartItem({ name, price, picture, quantity, id }) {
         <h3>{name}</h3>
       </header>
       <section className="itemPriceQuantity">
-        <h3>${price}</h3>
-        <div>
-          <button className="deleteItem">DE</button>
-          <button>-</button>
-          <h4>{quantity}</h4>
-          <button>+</button>
+        <div className="itemPrices">
+          <span>${price} c/u</span>
+          <h3>${price * actualQuantity}</h3>
+        </div>
+        <div className="quantities">
+          <button className="deleteItem" onClick={() => deleteItem(id)}>
+            DE
+          </button>
+          <button onClick={() => handleQuantity(-1)}>-</button>
+          <h4>{actualQuantity}</h4>
+          <button onClick={() => handleQuantity(1)}>+</button>
         </div>
       </section>
     </article>

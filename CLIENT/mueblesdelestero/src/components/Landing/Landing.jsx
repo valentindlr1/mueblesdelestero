@@ -5,6 +5,9 @@ import axios from "axios";
 import { useGoogleLogin, GoogleLogin } from "@react-oauth/google";
 import validateLogin from "./validateLogin";
 import validateRegister from "./validateRegister";
+import { pushNotifMessage, shiftNotifMessage } from "../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import NotifMessage from "../NotifMessage/NotifMessage";
 
 export default function Landing() {
   const navigate = useNavigate();
@@ -23,10 +26,11 @@ export default function Landing() {
   });
   const [menuType, setMenuType] = useState("login");
   const [errors, setErrors] = useState({ incomplete: true, password: [] });
-  const [message, setMessage] = useState("");
+  const messages = useSelector(state => state.notifMessages)
   const [loading, setLoading] = useState(false);
   const loader = <div className="customloader"></div>;
   const [loadingGoogle, setLoadingGoogle] = useState(false);
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const user = JSON.parse(window.localStorage.getItem("userInfo"));
@@ -74,9 +78,9 @@ export default function Landing() {
           navigate("/shop");
         case "Error al acceder: Usuario baneado.":
           setLoading(false);
-          setMessage(tryLogin);
+          dispatch(pushNotifMessage(tryLogin));
           setTimeout(() => {
-            setMessage("");
+            dispatch(shiftNotifMessage());
           }, 3990);
       }
       if (typeof tryLogin !== "string") {
@@ -87,9 +91,9 @@ export default function Landing() {
     },
     onError: (errorResponse) => {
       setLoadingGoogle(false);
-      setMessage("Error al enviar solicitud");
+      dispatch(pushNotifMessage("Error al enviar solicitud"));
       setTimeout(() => {
-        setMessage("");
+        dispatch(shiftNotifMessage());
       }, 3990);
       console.log(errorResponse);
     },
@@ -128,9 +132,9 @@ export default function Landing() {
       .then((info) => {
         if (typeof info === "string") {
           setLoading(false);
-          setMessage(info);
+          dispatch(pushNotifMessage(info));
           setTimeout(() => {
-            setMessage("");
+            dispatch(shiftNotifMessage());
           }, 3990);
         } else {
           window.localStorage.setItem("userInfo", JSON.stringify(info.user));
@@ -152,15 +156,15 @@ export default function Landing() {
       .then((res) => res.data)
       .then((info) => {
         setLoading(false);
-        setMessage(info);
+        dispatch(pushNotifMessage(info));
         setTimeout(() => {
-          setMessage("");
+          dispatch(shiftNotifMessage());
         }, 3990);
       })
       .catch((error) => console.error("ERROR: ", error.message));
   };
 
-  const showMessage = message.length ? message : "";
+  const showMessage = messages.length ? messages.map((msg, index) => <NotifMessage message={msg} key={index}/>) : "";
   return (
     <div className="landingContainer">
       {
@@ -237,9 +241,7 @@ export default function Landing() {
             </button>
 
             <hr />
-              
-            
-            {showMessage}
+
           </div>
         ) : (
           ""
@@ -353,29 +355,29 @@ export default function Landing() {
                 ¿Ya tienes una cuenta? Iniciar Sesión
               </p>
             </div>
-              
-            <div className="landingBottom">
-            </div>
-            {showMessage}
+
+            <div className="landingBottom"></div>
+          
           </div>
         ) : (
           ""
         )
       }
       <img
-                src="logo-muebles.png"
-                alt="logo"
-                className="logoMueblesLanding"
-              ></img>
+        src="logo-muebles.png"
+        alt="logo"
+        className="logoMueblesLanding"
+      ></img>
       <div className="landingBottom">
-              <p>dskskdskdskdksdksdksdksdksksdksdksdksdk</p>
-              <p>dskskdskdskdksdksdksdksdksksdksdksdksdk</p>
-              <p>dskskdskdskdksdksdksdksdksksdksdksdksdk</p>
-              <p>dskskdskdskdksdksdksdksdksksdksdksdksdk</p>
-              <p>dskskdskdskdksdksdksdksdksksdksdksdksdk</p>
-              <p>dskskdskdskdksdksdksdksdksksdksdksdksdk</p>
-              <p>dskskdskdskdksdksdksdksdksksdksdksdksdk</p>
-            </div>
+        <p>dskskdskdskdksdksdksdksdksksdksdksdksdk</p>
+        <p>dskskdskdskdksdksdksdksdksksdksdksdksdk</p>
+        <p>dskskdskdskdksdksdksdksdksksdksdksdksdk</p>
+        <p>dskskdskdskdksdksdksdksdksksdksdksdksdk</p>
+        <p>dskskdskdskdksdksdksdksdksksdksdksdksdk</p>
+        <p>dskskdskdskdksdksdksdksdksksdksdksdksdk</p>
+        <p>dskskdskdskdksdksdksdksdksksdksdksdksdk</p>
+      </div>
+      {showMessage}
     </div>
   );
 }

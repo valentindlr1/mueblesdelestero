@@ -3,6 +3,8 @@ import "./Account.modules.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import NotifMessage from "../NotifMessage/NotifMessage";
+import { pushNotifMessage, shiftNotifMessage } from "../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Account() {
   const userInfo = JSON.parse(window.localStorage.getItem("userInfo"));
@@ -16,12 +18,14 @@ export default function Account() {
     dni: "",
     phone: "",
   });
-  const [message, setMessage] = useState("");
+  // const [message, setMessage] = useState("");
+  const messages = useSelector((state) => state.notifMessages);
   const [loading, setLoading] = useState(false);
   const loader = <div className="customloader"></div>;
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (user && user.email){
+    if (user && user.email) {
       axios
         .get("/users/" + user.email)
         .then((res) => res.data)
@@ -75,7 +79,7 @@ export default function Account() {
       })
       .then((res) => res.data)
       .then((data) => {
-        setMessage(data);
+        dispatch(pushNotifMessage(data));
         setEditData({
           name: "",
           lName: "",
@@ -85,17 +89,22 @@ export default function Account() {
         setEditing(false);
         setLoading(false);
         setTimeout(() => {
-          setMessage("");
+          dispatch(shiftNotifMessage());
         }, 3990);
       })
       .catch((error) => {
         setLoading(false);
-        setMessage("Error al actualizar los datos");
+        dispatch(pushNotifMessage("Error al actualizar los datos"));
         setTimeout(() => {
-          setMessage("");
+          dispatch(shiftNotifMessage());
         }, 3990);
       });
   };
+
+  useEffect(() => {
+    console.log("MESSAGES: ", messages.length);
+  }, [messages]);
+
   return (
     <main className="accountContainer">
       <header>
@@ -192,13 +201,11 @@ export default function Account() {
           </button>
         )}
       </section>
-      {message.length ? <NotifMessage message={message}/> : ""}
-      <button onClick={()=>{
-        setMessage("MENSAJE DE PRUEBA")
-        setTimeout(()=>{
-          setMessage("")
-        },3990)
-      }}>mostrar mensaje prueba</button>
+      {messages.length > 0
+        ? messages.map((msg, index) => (
+            <NotifMessage message={msg} key={index} />
+          ))
+        : ""}
     </main>
   );
 }

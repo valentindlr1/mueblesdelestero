@@ -1,19 +1,18 @@
 .notifMessageContainer{
     display: flex;
     max-width: 18rem;
-    position: absolute;
-    top: 0rem;
+    position: fixed;
+    top: 0;
     padding: 2rem;
     justify-content: center;
     align-items: center;
-    transition: slide 4s;
     border: 1px solid rgba(0, 0, 0, 0.500);
     border-radius: 15px;
     margin: 2rem;
     background-color: rgba(255, 255, 255, 0.927);
-    animation: slide 4s linear
+    animation: movein 0.5s ease forwards, moveout 0.5s 3s ease forwards
 }
-@keyframes slide {
+/* @keyframes slide {
     0% {
         transform: translateY(-100%);
         opacity: 0%;
@@ -27,6 +26,27 @@
         opacity: 100%;
     }
     100%{
+        transform: translateY(100%);
+        opacity: 0%;
+    }
+} */
+
+@keyframes movein {
+    from {
+        transform: translateY(-100%);
+        opacity: 0%;
+    }
+    to {
+        transform: translateY(0%);
+        opacity: 100%;
+    }
+}
+@keyframes moveout {
+    from {
+        transform: translateY(0%);
+        opacity: 100%;
+    }
+    to {
         transform: translateY(100%);
         opacity: 0%;
     }
