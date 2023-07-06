@@ -93,6 +93,7 @@ export default function NavBar() {
           <h4>Contáctanos</h4>
         </li>
         <li className="navItem sesion" onClick={handleLogOut}>
+          <span>{user ? user.name +" "+ user.lName : ""}</span>
           <button>{user ? "Cerrar Sesión" : "Iniciar Sesión"}</button>
         </li>
       </ul>
