@@ -2,9 +2,9 @@
     display: flex;
     flex-wrap: wrap;
     width: 100vw;
-    height: 100vh;
-    place-items: center;
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 5rem;
 }
 .customloader {
     border: 5px solid #f3f3f3;
@@ -43,16 +43,19 @@
 }
 .landingBottom{
     display:flex;
-    justify-content: center;
-    max-width: 500px;
-    width: 500px;
-    height: 100px;
-    position:absolute;
-    bottom: 50px;
-    right: 0px;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    margin-top: 5rem;
+    background-color: #70798C;
+    margin-bottom: 0;
 }
 .logoMueblesLanding{
-    max-width: 100px;
+    width: 10rem;
+    height: 10rem;
+    position: sticky;
+    bottom: 4vh;
+    margin-right: -90vw;
 }
 .accessButton{
     background-color: #70798C;

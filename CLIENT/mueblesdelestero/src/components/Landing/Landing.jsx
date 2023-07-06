@@ -237,13 +237,8 @@ export default function Landing() {
             </button>
 
             <hr />
-            <div className="landingBottom">
-              <img
-                src="logo-muebles.webp"
-                alt="logo"
-                className="logoMueblesLanding"
-              ></img>
-            </div>
+              
+            
             {showMessage}
           </div>
         ) : (
@@ -358,12 +353,8 @@ export default function Landing() {
                 ¿Ya tienes una cuenta? Iniciar Sesión
               </p>
             </div>
+              
             <div className="landingBottom">
-              <img
-                src="logo-muebles.png"
-                alt="logo"
-                className="logoMueblesLanding"
-              ></img>
             </div>
             {showMessage}
           </div>
@@ -371,6 +362,20 @@ export default function Landing() {
           ""
         )
       }
+      <img
+                src="logo-muebles.png"
+                alt="logo"
+                className="logoMueblesLanding"
+              ></img>
+      <div className="landingBottom">
+              <p>dskskdskdskdksdksdksdksdksksdksdksdksdk</p>
+              <p>dskskdskdskdksdksdksdksdksksdksdksdksdk</p>
+              <p>dskskdskdskdksdksdksdksdksksdksdksdksdk</p>
+              <p>dskskdskdskdksdksdksdksdksksdksdksdksdk</p>
+              <p>dskskdskdskdksdksdksdksdksksdksdksdksdk</p>
+              <p>dskskdskdskdksdksdksdksdksksdksdksdksdk</p>
+              <p>dskskdskdskdksdksdksdksdksksdksdksdksdk</p>
+            </div>
     </div>
   );
 }
