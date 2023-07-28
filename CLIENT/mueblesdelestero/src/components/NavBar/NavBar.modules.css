@@ -83,7 +83,12 @@ width: 18rem;
     width: 90%;
     border: none
 }
-
+.sesion{
+    flex-direction: column;
+    text-align: center;
+    justify-items: center;
+    align-items: center;
+}
 .sesion:hover{
     background: none;
 }

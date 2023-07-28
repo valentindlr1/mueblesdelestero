@@ -65,13 +65,24 @@ async function loginUser({ email, password, tokenId }) {
     if (!user) return "Email no registrado";
     // Then check the password
     const passCheck = await bcrypt.compare(password, user.password);
-    if (tokenId)
+    if (tokenId){
       await User.update(
         {
           googleToken: tokenId,
         },
         { where: { email: email } }
-      );
+      )
+      // Google Login
+      return {
+        user: {
+          email: email,
+          name: user.name,
+          lName: user.lName,
+          picture: user.picture,
+          id: user.id,
+        },
+      };
+    }
     if (!passCheck) return "Credenciales incorrectas";
     // Check if it's not banned
     if (user.isBan) return "Error al acceder: Usuario baneado.";
@@ -193,6 +204,16 @@ async function setBanStatus({ status, id }) {
     throw new Error(error);
   }
 }
+async function getUserById (id) {
+  try {
+    const user = await User.findByPk(id)
+    if (!user) return {error: "Error al cargar los datos de usuario"}
+    return user
+  } catch (error) {
+    console.error("ERROR: ", error.message);
+    throw new Error(error);
+  }
+}
 
 module.exports = {
   getAllUsers,
@@ -204,4 +225,5 @@ module.exports = {
   setBanStatus,
   logoutUser,
   getUserByEmail,
+  getUserById,
 };

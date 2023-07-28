@@ -2,9 +2,13 @@ import React, { useState, useEffect } from "react";
 import "./Account.modules.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import NotifMessage from "../NotifMessage/NotifMessage";
+import { pushNotifMessage, shiftNotifMessage } from "../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Account() {
-  const { user } = JSON.parse(window.localStorage.getItem("userInfo"));
+  const userInfo = JSON.parse(window.localStorage.getItem("userInfo"));
+  const user = userInfo ? userInfo : false;
   const [userData, setUserData] = useState({});
   const navigate = useNavigate();
   const [editing, setEditing] = useState(false);
@@ -14,17 +18,20 @@ export default function Account() {
     dni: "",
     phone: "",
   });
-  const [message, setMessage] = useState("")
+  // const [message, setMessage] = useState("");
+  const messages = useSelector((state) => state.notifMessages);
   const [loading, setLoading] = useState(false);
   const loader = <div className="customloader"></div>;
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    axios
-      .get("/users/" + user.email)
-      // TODO: crear getById en back
-      .then((res) => res.data)
-      .then((data) => setUserData(data))
-      .catch((error) => console.error(error.message));
+    if (user && user.email) {
+      axios
+        .get("/users/" + user.email)
+        .then((res) => res.data)
+        .then((data) => setUserData(data))
+        .catch((error) => console.error(error.message));
+    }
   }, [editing]);
 
   function toggleEdit() {
@@ -61,33 +68,43 @@ export default function Account() {
 
   const handleEditSubmit = (e) => {
     e.preventDefault();
-    setLoading(true)
-    axios.put("/users/update/" + userData.id, {
-      name: editData.name.length ? editData.name : userData.name,
-      lName: editData.lName.length ? editData.lName : userData.lName,
-      dni: editData.dni.length ? editData.dni : userData.dni,
-      phone: editData.phone.length ? editData.phone : userData.phone,
-      picture: userData.picture
-    })
-    .then(res=> res.data)
-    .then(data => {
-      setMessage(data)
-      setEditData({
-        name: "",
-        lName: "",
-        dni: "",
-        phone: "",
+    setLoading(true);
+    axios
+      .put("/users/update/" + userData.id, {
+        name: editData.name.length ? editData.name : userData.name,
+        lName: editData.lName.length ? editData.lName : userData.lName,
+        dni: editData.dni.length ? editData.dni : userData.dni,
+        phone: editData.phone.length ? editData.phone : userData.phone,
+        picture: userData.picture,
       })
-      setEditing(false)
-      setLoading(false)
-      setTimeout(()=>{setMessage("")},3000)
-    })
-    .catch(error => {
-      setLoading(false)
-      setMessage("Error al actualizar los datos")
-      setTimeout(()=>{setMessage("")},3000)
-    })
+      .then((res) => res.data)
+      .then((data) => {
+        dispatch(pushNotifMessage(data));
+        setEditData({
+          name: "",
+          lName: "",
+          dni: "",
+          phone: "",
+        });
+        setEditing(false);
+        setLoading(false);
+        setTimeout(() => {
+          dispatch(shiftNotifMessage());
+        }, 3990);
+      })
+      .catch((error) => {
+        setLoading(false);
+        dispatch(pushNotifMessage("Error al actualizar los datos"));
+        setTimeout(() => {
+          dispatch(shiftNotifMessage());
+        }, 3990);
+      });
   };
+
+  useEffect(() => {
+    console.log("MESSAGES: ", messages.length);
+  }, [messages]);
+
   return (
     <main className="accountContainer">
       <header>
@@ -146,9 +163,13 @@ export default function Account() {
                   onChange={handleEditData}
                 ></input>
               </label>
-              {loading ? loader : <button type="submit" className="editUserButtons">
-                Guardar
-              </button>}
+              {loading ? (
+                loader
+              ) : (
+                <button type="submit" className="editUserButtons">
+                  Guardar
+                </button>
+              )}
             </form>
           ) : (
             <form className="userInfo">
@@ -170,11 +191,21 @@ export default function Account() {
               </label>
             </form>
           ))}
-        <button type="button" onClick={toggleEdit} className="editUserButtons">
-          {!editing ? "Editar" : "Cancelar Edición"}
-        </button>
+        {user && (
+          <button
+            type="button"
+            onClick={toggleEdit}
+            className="editUserButtons"
+          >
+            {!editing ? "Editar" : "Cancelar Edición"}
+          </button>
+        )}
       </section>
-      {message.length ? <span>{message}</span>:""}
+      {messages.length > 0
+        ? messages.map((msg, index) => (
+            <NotifMessage message={msg} key={index} />
+          ))
+        : ""}
     </main>
   );
 }

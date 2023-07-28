@@ -10,11 +10,13 @@ const {
   setBanStatusHandler,
   logoutUserHandler,
   getUserByEmailHandler,
+  getUserByIdHandler,
 } = require("../handlers/userHandler");
 
 /* GET users listing. */
 router.get("/", getAllUsersHandler);
 router.get("/:email", getUserByEmailHandler);
+router.get("/account/:id", getUserByIdHandler);
 router.post("/register", createUserHandler);
 router.post("/login", loginUserHandler);
 router.post("/logout", logoutUserHandler);
