@@ -18,6 +18,7 @@ export default function Cart() {
   const showMessage = messages.length
     ? messages.map((msg, index) => <NotifMessage message={msg} key={index} />)
     : "";
+  const [total, setTotal] = useState(0)
 
   useEffect(() => {
     const cartItems = JSON.parse(window.localStorage.getItem("cart"));
@@ -47,6 +48,7 @@ export default function Cart() {
       if (cart) {
         dispatch(cartQuantity(cart.length));
       } else dispatch(cartQuantity(0));
+      setTotal(0)
     };
   }, []);
 
@@ -60,6 +62,27 @@ export default function Cart() {
       dispatch(shiftNotifMessage());
     }, 3990);
   }
+  function showItems () {
+    return cartData.map((item, index) => (
+      <CartItem
+        key={index}
+        picture={item.picture}
+        name={item.name}
+        price={item.price}
+        quantity={item.quantity}
+        id={item.id}
+        deleteItem={deleteItem}
+      />
+    ))
+  }
+
+  useEffect(()=>{
+    if (cartData.length){
+      cartData.forEach((item)=>{
+        setTotal(total + item.price * item.quantity)
+      })
+    }
+  },[]) //TODO: actualizar total
 
   return (
     <main className="cartContainer">
@@ -68,20 +91,13 @@ export default function Cart() {
       </header>
       <section className="cartProducts">
         {cartData.length ? (
-          cartData.map((item, index) => (
-            <CartItem
-              key={index}
-              picture={item.picture}
-              name={item.name}
-              price={item.price}
-              quantity={item.quantity}
-              id={item.id}
-              deleteItem={deleteItem}
-            />
-          ))
+          showItems()
         ) : (
           <h3>Tu carrito está vacío</h3>
         )}
+      </section>
+      <section>
+        {cartData.length ? <h3>TOTAL {total}</h3> : ""}
       </section>
       {showMessage}
     </main>

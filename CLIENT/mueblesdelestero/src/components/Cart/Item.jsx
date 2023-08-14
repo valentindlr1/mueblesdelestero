@@ -15,7 +15,13 @@ export default function CartItem({
 
   function handleQuantity(num) {
     if (actualQuantity + num > 0) {
+      let localCart = JSON.parse(window.localStorage.getItem('cart'))
+      let localItem = [...localCart].filter(item => item.id === id)[0]
       setActualQuantity(actualQuantity + num);
+      let itemIndex = localCart.indexOf(localItem)
+      console.log("INDEX: ", itemIndex)
+      localCart[itemIndex].quantity = actualQuantity+num
+      window.localStorage.setItem("cart", JSON.stringify(localCart))
     }
   }
 
