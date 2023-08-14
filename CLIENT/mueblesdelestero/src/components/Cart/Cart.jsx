@@ -68,6 +68,7 @@ export default function Cart() {
     setTimeout(() => {
       dispatch(shiftNotifMessage());
     }, 3990);
+    toogleTriggerTotal(!triggerTotal)
   }
   function showItems() {
     return cartData.map((item, index) => (
@@ -121,8 +122,13 @@ export default function Cart() {
       <section className="cartProducts">
         {cartData.length ? showItems() : <h3>Tu carrito está vacío</h3>}
       </section>
-      <section>{cartData.length ? <h3>TOTAL {total}</h3> : ""}</section>
+      <section>
+        {cartData.length ? <h3>TOTAL {total}</h3> : ""}
+        {cartData.length ? <button>Comprar</button> : ""}
+        </section>
       {showMessage}
     </main>
   );
 }
+
+// TODO: continuar con la compra
