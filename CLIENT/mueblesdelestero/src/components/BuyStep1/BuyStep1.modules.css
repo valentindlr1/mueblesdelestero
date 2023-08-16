@@ -1,0 +1,53 @@
+.buyContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: antiquewhite;
+}
+.buyContainer h2 {
+    display: block;
+}
+.buyContainer textarea {
+    resize: none;
+    width: 100%;
+    height: 5rem;
+}
+.shippingForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.shippingForm label {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.shippingForm input {
+    width: 100%;
+}
+.step1Button{
+    width: 100%;
+}
+.customloader {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #0077ff;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }

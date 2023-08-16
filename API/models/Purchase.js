@@ -10,6 +10,22 @@ module.exports = (sequelize) => {
         primaryKey: true,
         defaultValue: DataTypes.UUIDV4,
       },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      lName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      dni: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      phone: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       products: {
         type: DataTypes.ARRAY(DataTypes.JSON),
         allowNull: false,

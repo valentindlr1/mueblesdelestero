@@ -94,7 +94,7 @@ export default function NavBar() {
         </li>
         <li className="navItem sesion" onClick={handleLogOut}>
           <span>
-            {user && user.lname
+            {user && user.lName
               ? user.name + " " + user.lName
               : user
               ? user.name

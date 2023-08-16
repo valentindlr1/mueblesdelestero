@@ -48,8 +48,6 @@ export default function Landing() {
         "https://www.googleapis.com/oauth2/v3/userinfo",
         { headers: { Authorization: `Bearer ${tokens.data.access_token}` } }
       );
-      console.log("User Info: ", userInfo);
-      console.log("Tokens: ", tokens);
       const tryLogin = await axios
         .post("/users/login", {
           email: userInfo.data.email,
@@ -114,11 +112,11 @@ export default function Landing() {
       ...registerData,
       [e.target.name]: e.target.value,
     };
-    if (e.target.name === "phone") {
-      if (e.target.value.length > 2 && !e.target.value.includes("-")) {
-        aux.phone = aux.phone.slice(0, 3) + "-" + aux.phone.slice(3);
-      }
-    }
+    // if (e.target.name === "phone") {
+    //   if (e.target.value.length > 2 && !e.target.value.includes("-")) {
+    //     aux.phone = aux.phone.slice(0, 3) + "-" + aux.phone.slice(3);
+    //   }
+    // }
     setErrors(validateRegister(aux));
     setRegisterData(aux);
   };

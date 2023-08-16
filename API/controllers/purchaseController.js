@@ -1,5 +1,5 @@
 const { Op } = require("sequelize");
-const { Purchase, User } = require("../db");
+const { Purchase, User, Product } = require("../db");
 const {
   sendPurchaseEmail,
   sendUpdatedPurchaseEmail,
@@ -15,6 +15,10 @@ async function getAllPurchases() {
   }
 }
 async function createPurchase({
+  name,
+  lName,
+  dni,
+  phone,
   products,
   limitDate,
   address,
@@ -26,8 +30,13 @@ async function createPurchase({
   userId,
 }) {
   try {
-    if (!userId) return "Error: Por favor inicie sesión";
-    await Purchase.create({
+    if (!userId)
+      return { message: "Error: Por favor inicie sesión", error: true };
+    const purchase = await Purchase.create({
+      name,
+      lName,
+      dni,
+      phone,
       products,
       limitDate,
       address,
@@ -36,13 +45,20 @@ async function createPurchase({
       province,
       details,
       totalPrice,
-      userId,
+      userId
     });
     const user = await User.findByPk(userId);
-    const { email, name, lName, dni, phone } = user;
+    const { email } = user;
+
+    const productsInfo = await Promise.all(products.map(async (prod) => {
+      let prodInfo = await Product.findByPk(prod.id)
+      let resultData = {name: prodInfo.name, price: prodInfo.price, picture: prodInfo.picture, quantity: prod.quantity}
+      return resultData
+    }))
+
     await sendPurchaseEmail({
       email,
-      products,
+      products: productsInfo,
       totalPrice,
       name,
       lName,
@@ -54,7 +70,11 @@ async function createPurchase({
       ZIPcode,
       details,
     });
-    return "Compra realizada con éxito";
+    return {
+      message: "Pedido creado con éxito",
+      error: false,
+      id: purchase.id,
+    };
   } catch (error) {
     console.error("ERROR: ", error.message);
     throw new Error(error.message);
@@ -76,8 +96,8 @@ async function setStatus({ id, status, trackCode }) {
     if (trackCode) {
       await Purchase.update({ trackCode }, { where: { id } });
     }
-    const {userId} = await Purchase.findByPk(id)
-    const {email} = await User.findOne({where:{id: userId}})
+    const { userId } = await Purchase.findByPk(id);
+    const { email } = await User.findOne({ where: { id: userId } });
     await sendUpdatedPurchaseEmail({ status, trackCode, email });
     return "Estado de compra actualizado: " + status;
   } catch (error) {

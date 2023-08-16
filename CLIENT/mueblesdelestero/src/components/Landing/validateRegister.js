@@ -20,7 +20,7 @@ export default function validateRegister(data) {
     }
   } else errors.incomplete = true;
   if (data.phone.length){
-    if (data.phone.length > 11){
+    if (data.phone.length > 10){
         errors.phone = "Sin 0 ni 15. Ej 385-4081874"
     }
   } else errors.incomplete = true

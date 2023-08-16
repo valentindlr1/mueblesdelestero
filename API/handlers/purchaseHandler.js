@@ -26,6 +26,10 @@ async function createPurchaseHandler(req, res) {
       province,
       details,
       totalPrice,
+      name,
+      lName,
+      dni,
+      phone,
     } = req.body;
     const purchase = await createPurchase({
       products,
@@ -37,6 +41,10 @@ async function createPurchaseHandler(req, res) {
       details,
       totalPrice,
       userId,
+      name,
+      lName,
+      dni,
+      phone,
     });
     return res.json(purchase);
   } catch (error) {

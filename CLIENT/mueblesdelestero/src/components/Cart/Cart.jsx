@@ -6,9 +6,11 @@ import {
   cartQuantity,
   pushNotifMessage,
   shiftNotifMessage,
+  setTotalPrice
 } from "../../redux/actions";
 import CartItem from "./Item";
 import NotifMessage from "../NotifMessage/NotifMessage";
+import { useNavigate } from "react-router-dom";
 
 export default function Cart() {
   const cartNumber = useSelector((state) => state.cartNumber);
@@ -20,6 +22,8 @@ export default function Cart() {
     : "";
   const [total, setTotal] = useState(0);
   const [triggerTotal, toogleTriggerTotal] = useState(false);
+  const navigate = useNavigate();
+  const user = JSON.parse(window.localStorage.getItem("userInfo"));
 
   useEffect(() => {
     const cartItems = JSON.parse(window.localStorage.getItem("cart"));
@@ -68,7 +72,7 @@ export default function Cart() {
     setTimeout(() => {
       dispatch(shiftNotifMessage());
     }, 3990);
-    toogleTriggerTotal(!triggerTotal)
+    toogleTriggerTotal(!triggerTotal);
   }
   function showItems() {
     return cartData.map((item, index) => (
@@ -124,8 +128,25 @@ export default function Cart() {
       </section>
       <section>
         {cartData.length ? <h3>TOTAL {total}</h3> : ""}
-        {cartData.length ? <button>Comprar</button> : ""}
-        </section>
+        {cartData.length ? (
+          user ? (
+            <button
+              onClick={() => {
+                dispatch(setTotalPrice(total))
+                navigate("/buy-step-1");
+              }}
+            >
+              Continuar con la compra
+            </button>
+          ) : (
+            <button onClick={() => navigate("/?buying=true")}>
+              Inicia sesión para continuar
+            </button>
+          )
+        ) : (
+          ""
+        )}
+      </section>
       {showMessage}
     </main>
   );

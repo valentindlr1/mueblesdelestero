@@ -2,11 +2,13 @@ import {
   CART_QUANTITY,
   PUSH_NOTIF_MESSAGE,
   SHIFT_NOTIF_MESSAGE,
+  SET_TOTAL_PRICE,
 } from "./actions";
 
 const initialState = {
   cartNumber: 0,
   notifMessages: [],
+  totalPrice: 0,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -29,6 +31,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         notifMessages: [...notifAux],
       };
+    case SET_TOTAL_PRICE:
+      return {
+        ...state,
+        totalPrice: action.payload
+      }
     default:
       return { ...state };
   }
