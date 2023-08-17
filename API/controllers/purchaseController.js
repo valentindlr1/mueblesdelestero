@@ -14,6 +14,15 @@ async function getAllPurchases() {
     throw new Error(error.message);
   }
 }
+async function getPurchaseById(id) {
+  try {
+    const result = await Purchase.findByPk(id);
+    return result;
+  } catch (error) {
+    console.error("ERROR: ", error.message);
+    throw new Error(error.message);
+  }
+}
 async function createPurchase({
   name,
   lName,
@@ -111,4 +120,5 @@ module.exports = {
   createPurchase,
   getByUserId,
   setStatus,
+  getPurchaseById,
 };

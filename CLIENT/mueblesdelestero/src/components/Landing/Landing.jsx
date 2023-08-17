@@ -8,6 +8,8 @@ import validateRegister from "./validateRegister";
 import { pushNotifMessage, shiftNotifMessage } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import NotifMessage from "../NotifMessage/NotifMessage";
+import useQuery from "../../utils/useQuery";
+
 
 export default function Landing() {
   const navigate = useNavigate();
@@ -31,6 +33,8 @@ export default function Landing() {
   const loader = <div className="customloader"></div>;
   const [loadingGoogle, setLoadingGoogle] = useState(false);
   const dispatch = useDispatch()
+  const querys = useQuery() // .get("") o .getAll("") para traer una o mas querys
+  const isBuyingQuery = querys.get("buying")
 
   useEffect(() => {
     const user = JSON.parse(window.localStorage.getItem("userInfo"));
@@ -73,6 +77,7 @@ export default function Landing() {
             JSON.stringify(userInfo.data)
           );
           setLoadingGoogle(false);
+          if (isBuyingQuery) return navigate("/cart")
           navigate("/shop");
         case "Error al acceder: Usuario baneado.":
           setLoading(false);
@@ -84,6 +89,7 @@ export default function Landing() {
       if (typeof tryLogin !== "string") {
         setLoadingGoogle(false);
         window.localStorage.setItem("userInfo", JSON.stringify(tryLogin.user));
+        if (isBuyingQuery) return navigate("/cart")
         navigate("/shop");
       }
     },
@@ -137,6 +143,7 @@ export default function Landing() {
         } else {
           window.localStorage.setItem("userInfo", JSON.stringify(info.user));
           setLoading(false);
+          if (isBuyingQuery) navigate("/cart")
           navigate("/shop");
         }
       })

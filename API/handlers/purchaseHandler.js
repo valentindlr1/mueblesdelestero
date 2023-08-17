@@ -3,12 +3,26 @@ const {
   createPurchase,
   getByUserId,
   setStatus,
+  getPurchaseById,
 } = require("../controllers/purchaseController");
 
 async function getAllPurchasesHandler(req, res) {
   try {
     const purchases = await getAllPurchases();
     return res.json(purchases);
+  } catch (error) {
+    console.error("ERROR: ", error.message);
+    return res.status(400);
+  }
+}
+async function getByIdHandler(req, res) {
+  try {
+    const {id} = req.params
+    if (id){
+      const purchase = await getPurchaseById(id);
+      return res.json(purchase);
+    }
+    return next()
   } catch (error) {
     console.error("ERROR: ", error.message);
     return res.status(400);
@@ -79,4 +93,5 @@ module.exports = {
   createPurchaseHandler,
   getByUserIdHandler,
   setStatusHandler,
+  getByIdHandler,
 };
