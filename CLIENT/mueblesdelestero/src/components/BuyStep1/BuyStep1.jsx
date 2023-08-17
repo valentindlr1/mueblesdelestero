@@ -40,7 +40,7 @@ export default function BuyStep1() {
   const [userID, setUserID] = useState(null);
   const cart = JSON.parse(window.localStorage.getItem("cart"));
   const totalPrice = useSelector((state) => state.totalPrice);
-  const loader = <div className="customloader"></div>;
+  const loader = <div className="customLoader"></div>;
 
   useEffect(() => {
     axios
@@ -127,18 +127,18 @@ export default function BuyStep1() {
         .catch((err) => console.error(err.message));
     }
   }
-
+  
   const showMessage = messages.length
-    ? messages.map((msg, index) => <NotifMessage message={msg} key={index} />)
-    : "";
-
+  ? messages.map((msg, index) => <NotifMessage message={msg} key={index} />)
+  : "";
+  
   return isLoading ? (
     <main className="buyContainer">
       {loader}
     </main>
   ) : (
     <main className="buyContainer">
-      <div>
+      <div className="backToCartDiv">
         <button>Volver al carrito</button>
       </div>
 
@@ -153,7 +153,7 @@ export default function BuyStep1() {
               value={shippingInfo.name}
               name="name"
               onChange={handleShippingInfo}
-            ></input>
+              ></input>
           </label>
           <label>
             <h4>Apellido</h4>
@@ -161,13 +161,13 @@ export default function BuyStep1() {
               type="text"
               placeholder={
                 user.lName
-                  ? user.lName
-                  : user.name.split(" ")[user.name.split(" ").length - 1]
+                ? user.lName
+                : user.name.split(" ")[user.name.split(" ").length - 1]
               }
               value={shippingInfo.lName}
               name="lName"
               onChange={handleShippingInfo}
-            ></input>
+              ></input>
           </label>
           <label>
             <h4>Email</h4>
@@ -177,7 +177,7 @@ export default function BuyStep1() {
               value={shippingInfo.email}
               name="email"
               onChange={handleShippingInfo}
-            ></input>
+              ></input>
           </label>
           <label>
             <h4>DNI</h4>
@@ -187,12 +187,12 @@ export default function BuyStep1() {
               value={shippingInfo.dni}
               name="dni"
               onChange={handleShippingInfo}
-            ></input>
+              ></input>
             {infoErrors.dni && infoErrors.dni.length ? (
               <p className="warning">{infoErrors.dni}</p>
-            ) : (
-              ""
-            )}
+              ) : (
+                ""
+                )}
           </label>
           <label>
             <h4>Teléfono</h4>
@@ -202,12 +202,12 @@ export default function BuyStep1() {
               value={shippingInfo.phone}
               name="phone"
               onChange={handleShippingInfo}
-            ></input>
+              ></input>
             {infoErrors.phone && infoErrors.phone.length ? (
               <p className="warning">{infoErrors.phone}</p>
-            ) : (
-              ""
-            )}
+              ) : (
+                ""
+                )}
           </label>
           <label>
             <h4>Provincia</h4>
@@ -217,12 +217,12 @@ export default function BuyStep1() {
               value={shippingInfo.province}
               name="province"
               onChange={handleShippingInfo}
-            ></input>
+              ></input>
             {infoErrors.province && infoErrors.province.length ? (
               <p className="warning">{infoErrors.province}</p>
-            ) : (
-              ""
-            )}
+              ) : (
+                ""
+                )}
           </label>
           <label>
             <h4>Localidad o Distrito</h4>
@@ -232,12 +232,12 @@ export default function BuyStep1() {
               value={shippingInfo.location}
               name="location"
               onChange={handleShippingInfo}
-            ></input>
+              ></input>
             {infoErrors.location && infoErrors.location.length ? (
               <p className="warning">{infoErrors.location}</p>
-            ) : (
-              ""
-            )}
+              ) : (
+                ""
+                )}
           </label>
           <label>
             <h4>Código Postal</h4>
@@ -247,12 +247,12 @@ export default function BuyStep1() {
               value={shippingInfo.ZIPcode}
               name="ZIPcode"
               onChange={handleShippingInfo}
-            ></input>
+              ></input>
             {infoErrors.ZIPcode && infoErrors.ZIPcode.length ? (
               <p className="warning">{infoErrors.ZIPcode}</p>
-            ) : (
-              ""
-            )}
+              ) : (
+                ""
+                )}
           </label>
           <label>
             <h4>Domicilio</h4>
@@ -263,7 +263,7 @@ export default function BuyStep1() {
               name="address"
               onChange={handleShippingInfo}
               required
-            ></input>
+              ></input>
           </label>
           <label>
             <h4>Aclaraciones</h4>
@@ -272,7 +272,7 @@ export default function BuyStep1() {
               placeholder="Detalles sobre el domicilio, horarios de entrega, etc..."
               name="details"
               onChange={handleShippingInfo}
-            ></textarea>
+              ></textarea>
           </label>
 
           <button type="submit" className="step1Button">

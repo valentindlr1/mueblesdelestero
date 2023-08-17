@@ -80,7 +80,7 @@ export default function NavBar() {
           {cart}
           <h4>Carrito</h4>
         </li>
-        <li className="navItem" onClick={() => navigate("/purchases")}>
+        <li className="navItem" onClick={() => navigate("/my-orders")}>
           {purchases}
           <h4>Mis compras</h4>
         </li>

@@ -9,6 +9,7 @@ import Account from "./components/Account/Account";
 import Cart from "./components/Cart/Cart";
 import BuyStep1 from "./components/BuyStep1/BuyStep1";
 import BuyStep2 from "./components/BuyStep2/BuyStep2";
+import MyOrders from "./components/MyOrders/MyOrders";
 
 function App() {
   const location = useLocation();
@@ -24,6 +25,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/buy-step-1" element={<BuyStep1 />} />
         <Route path="/buy-step-2/:id" element={<BuyStep2 />} /> {/* ID DE LA COMPRA */}
+        <Route path="/my-orders" element={<MyOrders />} />
       </Routes>
     </div>
   );

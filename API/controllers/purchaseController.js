@@ -3,6 +3,7 @@ const { Purchase, User, Product } = require("../db");
 const {
   sendPurchaseEmail,
   sendUpdatedPurchaseEmail,
+  sendUpdatedPaymentEmail,
 } = require("./nodemailerController");
 
 async function getAllPurchases() {
@@ -114,6 +115,19 @@ async function setStatus({ id, status, trackCode }) {
     throw new Error(error.message);
   }
 }
+async function updateTotalPaid({ totalPaid, id }) {
+  try {
+    await Purchase.update({ totalPaid }, { where: { id } });
+    
+    const { userId, totalPrice } = await Purchase.findByPk(id);
+    const { email } = await User.findOne({ where: { id: userId } });
+    await sendUpdatedPaymentEmail({ totalPaid, totalPrice, email });
+    return "Total abonado: $"+ totalPaid+ ". Total del pedido: $"+ totalPrice+".";
+  } catch (error) {
+    console.error("ERROR: ", error.message);
+    throw new Error(error.message);
+  }
+}
 
 module.exports = {
   getAllPurchases,
@@ -121,4 +135,5 @@ module.exports = {
   getByUserId,
   setStatus,
   getPurchaseById,
+  updateTotalPaid,
 };

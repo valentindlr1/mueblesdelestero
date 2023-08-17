@@ -4,6 +4,7 @@ const {
   getByUserId,
   setStatus,
   getPurchaseById,
+  updateTotalPaid,
 } = require("../controllers/purchaseController");
 
 async function getAllPurchasesHandler(req, res) {
@@ -17,12 +18,10 @@ async function getAllPurchasesHandler(req, res) {
 }
 async function getByIdHandler(req, res) {
   try {
-    const {id} = req.params
-    if (id){
-      const purchase = await getPurchaseById(id);
-      return res.json(purchase);
-    }
-    return next()
+    const { id } = req.params;
+    const purchase = await getPurchaseById(id);
+    if (purchase) return res.json(purchase);
+    return next();
   } catch (error) {
     console.error("ERROR: ", error.message);
     return res.status(400);
@@ -87,6 +86,17 @@ async function setStatusHandler(req, res) {
     return res.status(400);
   }
 }
+async function updateTotalPaidHandler(req, res) {
+  try {
+    const { id } = req.params;
+    const { totalPaid } = req.body;
+    const response = await updateTotalPaid({ totalPaid, id });
+    return res.send(response);
+  } catch (error) {
+    console.error("ERROR: ", error.message);
+    return res.status(400);
+  }
+}
 
 module.exports = {
   getAllPurchasesHandler,
@@ -94,4 +104,5 @@ module.exports = {
   getByUserIdHandler,
   setStatusHandler,
   getByIdHandler,
+  updateTotalPaidHandler,
 };

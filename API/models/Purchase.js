@@ -83,7 +83,8 @@ module.exports = (sequelize) => {
           "Devolución",
           "Listo",
           "Cambio",
-          "Pago pendiente"
+          "Pago pendiente",
+          "Pago en revisión",
         ),
         allowNull: false,
         defaultValue: "Pago pendiente",

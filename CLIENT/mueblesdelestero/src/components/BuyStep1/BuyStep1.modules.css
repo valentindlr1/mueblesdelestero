@@ -4,8 +4,16 @@
     justify-content: start;
     align-items: center;
     width: 100vw;
-    height: 100vh;
     background-color: antiquewhite;
+    padding: 1rem;
+    padding-bottom: 50vh;
+}
+.backToCartDiv{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 1rem;
 }
 .buyContainer h2 {
     display: block;
@@ -34,10 +42,10 @@
 .step1Button{
     width: 100%;
 }
-.customloader {
+.customLoader {
     border: 5px solid #f3f3f3;
     border-top: 5px solid #0077ff;
-    border-radius: 50%;
+    border-radius: 5%;
     width: 30px;
     height: 30px;
     animation: spin 1s linear infinite;

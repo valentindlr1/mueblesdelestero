@@ -35,6 +35,7 @@ export default function Landing() {
   const dispatch = useDispatch()
   const querys = useQuery() // .get("") o .getAll("") para traer una o mas querys
   const isBuyingQuery = querys.get("buying")
+  const onMyOrders = querys.get("myOrders")
 
   useEffect(() => {
     const user = JSON.parse(window.localStorage.getItem("userInfo"));
@@ -78,6 +79,7 @@ export default function Landing() {
           );
           setLoadingGoogle(false);
           if (isBuyingQuery) return navigate("/cart")
+          if (onMyOrders) return navigate("/my-orders")
           navigate("/shop");
         case "Error al acceder: Usuario baneado.":
           setLoading(false);
@@ -90,6 +92,8 @@ export default function Landing() {
         setLoadingGoogle(false);
         window.localStorage.setItem("userInfo", JSON.stringify(tryLogin.user));
         if (isBuyingQuery) return navigate("/cart")
+        if (onMyOrders) return navigate("/my-orders")
+
         navigate("/shop");
       }
     },
@@ -143,7 +147,9 @@ export default function Landing() {
         } else {
           window.localStorage.setItem("userInfo", JSON.stringify(info.user));
           setLoading(false);
-          if (isBuyingQuery) navigate("/cart")
+          if (isBuyingQuery) return navigate("/cart")
+          if (onMyOrders) return navigate("/my-orders")
+
           navigate("/shop");
         }
       })

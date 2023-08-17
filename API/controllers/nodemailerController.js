@@ -135,10 +135,26 @@ const sendUpdatedPurchaseEmail = async ({ status, trackCode, email }) => {
 
   await transporter.sendMail(message);
 };
+const sendUpdatedPaymentEmail = async ({ totalPaid, totalPrice, email }) => {
+  const message = {
+    from: "mueblesdelestero@gmail.com",
+    to: email,
+    subject: `Pago confirmado en Muebles del Estero`,
+    text: `Se ha confirmado el pago de su compra`,
+    html: `<div style="background-color: #F5F1ED; color: #252323;">
+    <h1>Se ha confirmado el pago de su compra</h1>
+    <h2>Total abonado: $${totalPaid}</h2>
+    <h2>Total del pedido: $${totalPrice}</h2>
+    </div>`,
+  };
+
+  await transporter.sendMail(message);
+};
 
 module.exports = {
   sendRegisterEmail,
   sendForgotPassMail,
   sendPurchaseEmail,
   sendUpdatedPurchaseEmail,
+  sendUpdatedPaymentEmail,
 };
