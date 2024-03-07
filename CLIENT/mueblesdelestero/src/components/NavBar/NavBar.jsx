@@ -69,7 +69,7 @@ export default function NavBar() {
             alt="Logo mueblesdelestero"
             id="logoNav"
           ></img>
-          <h2>MUEBLES DEL ESTERO</h2>
+          <h2>INICIO</h2>
         </li>
         <li className="navItem" onClick={() => navigate("/account")}>
           {profile}

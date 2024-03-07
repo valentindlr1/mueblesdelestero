@@ -133,7 +133,7 @@ export default function Cart() {
             <button
               onClick={() => {
                 dispatch(setTotalPrice(total))
-                navigate("/buy-step-1");
+                navigate("/datos-de-envio");
               }}
             >
               Continuar con la compra

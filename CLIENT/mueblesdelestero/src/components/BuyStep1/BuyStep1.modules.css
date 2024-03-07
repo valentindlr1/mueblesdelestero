@@ -36,6 +36,11 @@
     align-items: center;
     text-align: center;
 }
+.theForm {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
 .shippingForm input {
     width: 100%;
 }
@@ -50,7 +55,18 @@
     height: 30px;
     animation: spin 1s linear infinite;
   }
-  
+.retirarCheck {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    flex-wrap: wrap;
+}
+.checkbox {
+    max-width: fit-content;
+}
+.warning {
+    color: red;
+}
   @keyframes spin {
     0% {
       transform: rotate(0deg);

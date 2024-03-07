@@ -94,6 +94,11 @@ module.exports = (sequelize) => {
         allowNull: false,
         defaultValue: "",
       },
+      comprobantes: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        allowNull: false,
+        defaultValue: []
+      }
     },
     {
       timestamps: false,

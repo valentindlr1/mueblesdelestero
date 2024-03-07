@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 export default function BuyStep1() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [shippingInfo, setShippingInfo] = useState({
     name: "",
     lName: "",
@@ -34,6 +34,7 @@ export default function BuyStep1() {
     location: "",
     ZIPcode: "",
   });
+  const [showAddress, setShowAddress] = useState(true)
   const dispatch = useDispatch();
   const messages = useSelector((state) => state.notifMessages);
   const user = JSON.parse(window.localStorage.getItem("userInfo"));
@@ -69,14 +70,23 @@ export default function BuyStep1() {
     });
   }
 
+  function handleCheckbox(e) {
+    let checked = e.target.checked
+    if (checked){
+      setShowAddress(false)
+    } else {
+      setShowAddress(true)
+    }
+  }
+
   function handleInfoSubmit(e) {
     e.preventDefault();
     let auxErrors = validateShippingInfo({
       dni: shippingInfo.dni.length ? shippingInfo.dni : userData.dni,
       phone: shippingInfo.phone.length ? shippingInfo.phone : userData.phone,
-      province: shippingInfo.province.length ? shippingInfo.province : 1,
-      location: shippingInfo.location.length ? shippingInfo.location : 1,
-      ZIPcode: shippingInfo.ZIPcode.length ? shippingInfo.ZIPcode : 1,
+      province: shippingInfo.province.length ? shippingInfo.province : "1",
+      location: shippingInfo.location.length ? shippingInfo.location : "1",
+      ZIPcode: shippingInfo.ZIPcode.length ? shippingInfo.ZIPcode : "1",
     });
     let isError = false;
     Object.values(auxErrors).forEach((error) => {
@@ -90,7 +100,7 @@ export default function BuyStep1() {
         dispatch(shiftNotifMessage());
       }, 3990);
     } else {
-      setIsLoading(true)
+      setIsLoading(true);
       axios
         .post("/purchases/" + userID, {
           name: shippingInfo.name.length
@@ -120,22 +130,20 @@ export default function BuyStep1() {
           setTimeout(() => {
             dispatch(shiftNotifMessage());
           }, 3990);
-          setIsLoading(false)
-          let buyId = res.data.id
-          navigate("/buy-step-2/"+buyId)
+          setIsLoading(false);
+          let buyId = res.data.id;
+          navigate("/pago/" + buyId);
         })
         .catch((err) => console.error(err.message));
     }
   }
-  
+
   const showMessage = messages.length
-  ? messages.map((msg, index) => <NotifMessage message={msg} key={index} />)
-  : "";
-  
+    ? messages.map((msg, index) => <NotifMessage message={msg} key={index} />)
+    : "";
+
   return isLoading ? (
-    <main className="buyContainer">
-      {loader}
-    </main>
+    <main className="buyContainer">{loader}</main>
   ) : (
     <main className="buyContainer">
       <div className="backToCartDiv">
@@ -144,7 +152,7 @@ export default function BuyStep1() {
 
       <section className="shippingForm">
         <h2>¿Quién recibe el envío?</h2>
-        <form onSubmit={handleInfoSubmit}>
+        <form onSubmit={handleInfoSubmit} className="theForm">
           <label>
             <h4>Nombre</h4>
             <input
@@ -153,7 +161,7 @@ export default function BuyStep1() {
               value={shippingInfo.name}
               name="name"
               onChange={handleShippingInfo}
-              ></input>
+            ></input>
           </label>
           <label>
             <h4>Apellido</h4>
@@ -161,13 +169,13 @@ export default function BuyStep1() {
               type="text"
               placeholder={
                 user.lName
-                ? user.lName
-                : user.name.split(" ")[user.name.split(" ").length - 1]
+                  ? user.lName
+                  : user.name.split(" ")[user.name.split(" ").length - 1]
               }
               value={shippingInfo.lName}
               name="lName"
               onChange={handleShippingInfo}
-              ></input>
+            ></input>
           </label>
           <label>
             <h4>Email</h4>
@@ -177,7 +185,7 @@ export default function BuyStep1() {
               value={shippingInfo.email}
               name="email"
               onChange={handleShippingInfo}
-              ></input>
+            ></input>
           </label>
           <label>
             <h4>DNI</h4>
@@ -187,12 +195,12 @@ export default function BuyStep1() {
               value={shippingInfo.dni}
               name="dni"
               onChange={handleShippingInfo}
-              ></input>
+            ></input>
             {infoErrors.dni && infoErrors.dni.length ? (
               <p className="warning">{infoErrors.dni}</p>
-              ) : (
-                ""
-                )}
+            ) : (
+              ""
+            )}
           </label>
           <label>
             <h4>Teléfono</h4>
@@ -202,12 +210,12 @@ export default function BuyStep1() {
               value={shippingInfo.phone}
               name="phone"
               onChange={handleShippingInfo}
-              ></input>
-            {infoErrors.phone && infoErrors.phone.length ? (
+            ></input>
+            {infoErrors.phone ? (
               <p className="warning">{infoErrors.phone}</p>
-              ) : (
-                ""
-                )}
+            ) : (
+              ""
+            )}
           </label>
           <label>
             <h4>Provincia</h4>
@@ -217,27 +225,28 @@ export default function BuyStep1() {
               value={shippingInfo.province}
               name="province"
               onChange={handleShippingInfo}
-              ></input>
+            ></input>
             {infoErrors.province && infoErrors.province.length ? (
               <p className="warning">{infoErrors.province}</p>
-              ) : (
-                ""
-                )}
+            ) : (
+              ""
+            )}
           </label>
           <label>
             <h4>Localidad o Distrito</h4>
+            {/* <span>Aclarar si es en CABA</span> */}
             <input
               type="text"
               placeholder="Ejemplo: Avellaneda"
               value={shippingInfo.location}
               name="location"
               onChange={handleShippingInfo}
-              ></input>
+            ></input>
             {infoErrors.location && infoErrors.location.length ? (
               <p className="warning">{infoErrors.location}</p>
-              ) : (
-                ""
-                )}
+            ) : (
+              ""
+            )}
           </label>
           <label>
             <h4>Código Postal</h4>
@@ -247,23 +256,27 @@ export default function BuyStep1() {
               value={shippingInfo.ZIPcode}
               name="ZIPcode"
               onChange={handleShippingInfo}
-              ></input>
+            ></input>
             {infoErrors.ZIPcode && infoErrors.ZIPcode.length ? (
               <p className="warning">{infoErrors.ZIPcode}</p>
-              ) : (
-                ""
-                )}
+            ) : (
+              ""
+            )}
           </label>
           <label>
             <h4>Domicilio</h4>
-            <input
+            <div className="retirarCheck">
+              <input type="checkbox" className="checkbox" onChange={handleCheckbox}></input>
+              <span>Prefiero retirarlo de sucursal.</span>
+            </div>
+            {showAddress ? <input
               type="text"
               placeholder="Calle, Altura, Depto"
               value={shippingInfo.address}
               name="address"
               onChange={handleShippingInfo}
               required
-              ></input>
+            ></input> : ""}
           </label>
           <label>
             <h4>Aclaraciones</h4>
@@ -272,7 +285,7 @@ export default function BuyStep1() {
               placeholder="Detalles sobre el domicilio, horarios de entrega, etc..."
               name="details"
               onChange={handleShippingInfo}
-              ></textarea>
+            ></textarea>
           </label>
 
           <button type="submit" className="step1Button">

@@ -51,7 +51,7 @@ async function createPurchase({
       limitDate,
       address,
       location,
-      ZIPcode,
+      ZIPcode: Number(ZIPcode),
       province,
       details,
       totalPrice,
@@ -86,7 +86,7 @@ async function createPurchase({
       id: purchase.id,
     };
   } catch (error) {
-    console.error("ERROR: ", error.message);
+    console.error("ERROR al crear la compra: ", error.message);
     throw new Error(error.message);
   }
 }

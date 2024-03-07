@@ -23,8 +23,8 @@ function App() {
         <Route path="/shop" element={<Shop />} />
         <Route path="/account" element={<Account />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/buy-step-1" element={<BuyStep1 />} />
-        <Route path="/buy-step-2/:id" element={<BuyStep2 />} /> {/* ID DE LA COMPRA */}
+        <Route path="/datos-de-envio" element={<BuyStep1 />} />
+        <Route path="/pago/:id" element={<BuyStep2 />} /> {/* ID DE LA COMPRA */}
         <Route path="/my-orders" element={<MyOrders />} />
       </Routes>
     </div>

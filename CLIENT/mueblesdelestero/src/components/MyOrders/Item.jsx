@@ -8,7 +8,7 @@ export default function PurchaseItem({ products, totalPrice, status, id, trackCo
     <div className="purchaseCard">
       <h3>Total: ${totalPrice},00</h3>
       <h3>Estado: {status}</h3>
-      {status === "Pago pendiente" ? <button onClick={()=> navigate("/buy-step-2/"+id)}>Ir a pagar</button> : ""}
+      {status === "Pago pendiente" ? <button onClick={()=> navigate("/pago/"+id)}>Ir a pagar</button> : ""}
       {trackCode.length ? <h3>Número de seguimiento: {trackCode}</h3> : ""}
     </div>
   );
