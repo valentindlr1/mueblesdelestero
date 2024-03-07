@@ -5,7 +5,7 @@ article img {
 }
 article {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   flex-direction: column;
   justify-content: start;
   align-content: center;
@@ -42,7 +42,7 @@ article button:hover {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin: 0 10px;
+  margin: 0 10px 10px 10px;
 }
 .addToCart {
   width: 150px;

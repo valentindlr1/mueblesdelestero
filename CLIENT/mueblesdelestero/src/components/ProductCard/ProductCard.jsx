@@ -44,7 +44,7 @@ export default function ProductCard({ name, price, picture, id }) {
     }
   }, [flagAdd]);
   return (
-    <article className="article">
+    <article >
       <img
         src={picture}
         alt="image"
