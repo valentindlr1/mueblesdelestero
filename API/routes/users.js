@@ -16,7 +16,7 @@ const {
 /* GET users listing. */
 router.get("/", getAllUsersHandler);
 router.get("/:email", getUserByEmailHandler);
-router.get("/account/:id", getUserByIdHandler);
+router.get("/cuenta/:id", getUserByIdHandler);
 router.post("/register", createUserHandler);
 router.post("/login", loginUserHandler);
 router.post("/logout", logoutUserHandler);

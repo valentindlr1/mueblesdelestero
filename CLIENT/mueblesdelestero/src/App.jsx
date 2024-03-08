@@ -19,13 +19,13 @@ function App() {
       {location.pathname !== "/" ? <NavBar /> : ""}
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/shop/detail/:id" element={<ProductDetail />} /> {/* ID DEL PRODUCTO */}
-        <Route path="/shop" element={<Shop />} />
-        <Route path="/account" element={<Account />} />
-        <Route path="/cart" element={<Cart />} />
+        <Route path="/tienda/detalle/:id" element={<ProductDetail />} /> {/* ID DEL PRODUCTO */}
+        <Route path="/tienda" element={<Shop />} />
+        <Route path="/cuenta" element={<Account />} />
+        <Route path="/carrito" element={<Cart />} />
         <Route path="/datos-de-envio" element={<BuyStep1 />} />
         <Route path="/pago/:id" element={<BuyStep2 />} /> {/* ID DE LA COMPRA */}
-        <Route path="/my-orders" element={<MyOrders />} />
+        <Route path="/mis-compras" element={<MyOrders />} />
       </Routes>
     </div>
   );

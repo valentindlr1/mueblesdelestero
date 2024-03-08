@@ -29,7 +29,7 @@ export default function Cart() {
     const cartItems = JSON.parse(window.localStorage.getItem("cart"));
     if (cartItems && cartItems.length) {
       axios
-        .get("/products/cart/" + JSON.stringify(cartItems))
+        .get("/products/carrito/" + JSON.stringify(cartItems))
         .then((res) => res.data)
         .then((items) => {
           setCartData(items);
@@ -95,7 +95,7 @@ export default function Cart() {
       const cartItems = JSON.parse(window.localStorage.getItem("cart"));
       if (cartItems && cartItems.length) {
         axios
-          .get("/products/cart/" + JSON.stringify(cartItems))
+          .get("/products/carrito/" + JSON.stringify(cartItems))
           .then((res) => res.data)
           .then((items) => {
             let actualTotal = 0;

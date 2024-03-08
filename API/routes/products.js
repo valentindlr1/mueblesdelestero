@@ -10,7 +10,7 @@ const {
 } = require("../handlers/productHandler");
 
 router.get("/", getAllProductsHandler);
-router.get("/cart/:items", getCartProductsHandler);
+router.get("/carrito/:items", getCartProductsHandler);
 router.get("/:id", getByIdHandler);
 router.post("/", createProductHandler);
 router.put("/:id", updateProductHandler);

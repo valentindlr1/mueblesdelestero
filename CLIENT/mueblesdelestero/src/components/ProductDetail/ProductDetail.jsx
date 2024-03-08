@@ -71,7 +71,7 @@ export default function ProductDetail() {
               <button onClick={() => handleQuantity("inc")}>+</button>
             </section>}
             <section className="addToCart">
-              {!isInCart ? <button id="addToCart">Agregar al Carrito</button> : <button id="addToCart" onClick={()=>navigate("/cart")}>Ver en el carrito</button>}
+              {!isInCart ? <button id="addToCart">Agregar al Carrito</button> : <button id="addToCart" onClick={()=>navigate("/carrito")}>Ver en el carrito</button>}
             </section>
           </section>
         </section>

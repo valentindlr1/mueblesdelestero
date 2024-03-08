@@ -39,7 +39,7 @@ export default function Landing() {
 
   useEffect(() => {
     const user = JSON.parse(window.localStorage.getItem("userInfo"));
-    if (user) navigate("/shop");
+    if (user) navigate("/tienda");
   }, []);
   const googleLogin = useGoogleLogin({
     flow: "auth-code",
@@ -78,9 +78,9 @@ export default function Landing() {
             JSON.stringify(userInfo.data)
           );
           setLoadingGoogle(false);
-          if (isBuyingQuery) return navigate("/cart")
-          if (onMyOrders) return navigate("/my-orders")
-          navigate("/shop");
+          if (isBuyingQuery) return navigate("/carrito")
+          if (onMyOrders) return navigate("/mis-compras")
+          navigate("/tienda");
         case "Error al acceder: Usuario baneado.":
           setLoading(false);
           dispatch(pushNotifMessage(tryLogin));
@@ -91,10 +91,10 @@ export default function Landing() {
       if (typeof tryLogin !== "string") {
         setLoadingGoogle(false);
         window.localStorage.setItem("userInfo", JSON.stringify(tryLogin.user));
-        if (isBuyingQuery) return navigate("/cart")
-        if (onMyOrders) return navigate("/my-orders")
+        if (isBuyingQuery) return navigate("/carrito")
+        if (onMyOrders) return navigate("/mis-compras")
 
-        navigate("/shop");
+        navigate("/tienda");
       }
     },
     onError: (errorResponse) => {
@@ -147,10 +147,10 @@ export default function Landing() {
         } else {
           window.localStorage.setItem("userInfo", JSON.stringify(info.user));
           setLoading(false);
-          if (isBuyingQuery) return navigate("/cart")
-          if (onMyOrders) return navigate("/my-orders")
+          if (isBuyingQuery) return navigate("/carrito")
+          if (onMyOrders) return navigate("/mis-compras")
 
-          navigate("/shop");
+          navigate("/tienda");
         }
       })
       .catch((error) => console.error("ERROR: ", error.message));
@@ -245,7 +245,7 @@ export default function Landing() {
             )}
             <hr />
             <button
-              onClick={() => navigate("/shop")}
+              onClick={() => navigate("/tienda")}
               className="accessButton invite"
             >
               Acceder como invitado

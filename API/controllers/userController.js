@@ -24,7 +24,7 @@ async function getUserByEmail(email) {
     if (!user) return "Email no registrado";
     return user;
   } catch (error) {
-    console.error("ERROR: ", error.message);
+    console.error("ERROR al buscar usuario por email: ", error.message);
     throw new Error(error.message);
   }
 }

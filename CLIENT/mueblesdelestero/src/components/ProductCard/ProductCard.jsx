@@ -49,11 +49,11 @@ export default function ProductCard({ name, price, picture, id }) {
         src={picture}
         alt="image"
         title="Ver detalle"
-        onClick={() => navigate("/shop/detail/" + id)}
+        onClick={() => navigate("/tienda/detalle/" + id)}
       />
       <div
         className="textDetail"
-        onClick={() => navigate("/shop/detail/" + id)}
+        onClick={() => navigate("/tienda/detalle/" + id)}
       >
         <h3>{name}</h3>
         <h4>${price}</h4>
@@ -73,7 +73,7 @@ export default function ProductCard({ name, price, picture, id }) {
         </div>
       ) : (
         <div className="buttons see">
-          <button className="seeCart" onClick={() => navigate("/cart")}>
+          <button className="seeCart" onClick={() => navigate("/carrito")}>
             Ver en el Carrito
           </button>
         </div>

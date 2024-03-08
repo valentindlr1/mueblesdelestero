@@ -31,7 +31,7 @@ export default function CartItem({
     <article className="cartItem">
       <header
         onClick={() => {
-          navigate("/shop/detail/" + id);
+          navigate("/tienda/detalle/" + id);
         }}
       >
         <img src={picture} className="itemPicture"></img>

@@ -63,7 +63,7 @@ export default function NavBar() {
   return (
     <div className="navBar">
       <ul className="navButtons">
-        <li className="navItem" onClick={() => navigate("/shop")}>
+        <li className="navItem" onClick={() => navigate("/tienda")}>
           <img
             src="/logo-muebles.png"
             alt="Logo mueblesdelestero"
@@ -71,16 +71,16 @@ export default function NavBar() {
           ></img>
           <h2>INICIO</h2>
         </li>
-        <li className="navItem" onClick={() => navigate("/account")}>
+        <li className="navItem" onClick={() => navigate("/cuenta")}>
           {profile}
           <h4>Mi cuenta</h4>
         </li>
-        <li className="navItem" onClick={() => navigate("/cart")}>
+        <li className="navItem" onClick={() => navigate("/carrito")}>
           <p className="cartNumber">{cartNumber > 0 && cartNumber}</p>
           {cart}
           <h4>Carrito</h4>
         </li>
-        <li className="navItem" onClick={() => navigate("/my-orders")}>
+        <li className="navItem" onClick={() => navigate("/mis-compras")}>
           {purchases}
           <h4>Mis compras</h4>
         </li>
