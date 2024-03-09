@@ -13,7 +13,7 @@ export default function BuyStep2() {
   const [loadingData, setLoadingData] = useState(true);
   const dispatch = useDispatch();
   const loader = <div className="customloader"></div>;
-  const [paymentLeft, setPaymentLeft] = useState(0)
+  const [paymentLeft, setPaymentLeft] = useState(0);
 
   useEffect(() => {
     axios
@@ -21,7 +21,7 @@ export default function BuyStep2() {
       .then((res) => res.data)
       .then((purchase) => {
         setTotalPrice(purchase.totalPrice);
-        setPaymentLeft(purchase.totalPrice - purchase.totalPaid)
+        setPaymentLeft(purchase.totalPrice - purchase.totalPaid);
         if (purchase.status === "Pago en revisión") setIsPaid(-1);
         else if (purchase.status === "Señado") setIsPaid(1);
         else if (purchase.status === "Abonado") setIsPaid(2);
@@ -77,8 +77,8 @@ export default function BuyStep2() {
           <h4>XXXXXXXXXXXXXXXX</h4>
         </label>
         <label>
-          <span>A nombre de:</span>
-          <h4>Valentin Herrera De la Rua</h4>
+          <span>Titular:</span>
+          <h4>Valentín Herrera De la Rúa</h4>
         </label>
         <label>
           <span>Banco:</span>
@@ -89,11 +89,23 @@ export default function BuyStep2() {
       {!loadingData && totalPrice ? (
         <section className="paymentTotal">
           <h3>Monto total del pedido</h3>
-          <h2>${totalPrice},00</h2>
+          <h2>
+            {Number(totalPrice).toLocaleString("es-AR", {
+              style: "currency",
+              currency: "ARS",
+              minimumFractionDigits: 2,
+            })}
+          </h2>
           <p>No incluye costo de envío, el cual se abona al recibirlo.</p>
           {paymentLeft < totalPrice ? (
-            <span>Restante a abonar: ${paymentLeft}</span>
-          ): ""}
+            <span>Restante a abonar: {paymentLeft.toLocaleString("es-AR", {
+              style: "currency",
+              currency: "ARS",
+              minimumFractionDigits: 2,
+            })}</span>
+          ) : (
+            ""
+          )}
         </section>
       ) : (
         <section className="paymentTotal">
