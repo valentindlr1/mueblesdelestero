@@ -65,13 +65,13 @@ async function loginUser({ email, password, tokenId }) {
     if (!user) return "Email no registrado";
     // Then check the password
     const passCheck = await bcrypt.compare(password, user.password);
-    if (tokenId){
+    if (tokenId) {
       await User.update(
         {
           googleToken: tokenId,
         },
         { where: { email: email } }
-      )
+      );
       // Google Login
       return {
         user: {
@@ -204,13 +204,23 @@ async function setBanStatus({ status, id }) {
     throw new Error(error);
   }
 }
-async function getUserById (id) {
+async function getUserById(id) {
   try {
-    const user = await User.findByPk(id)
-    if (!user) return {error: "Error al cargar los datos de usuario"}
-    return user
+    const user = await User.findByPk(id);
+    if (!user) return { error: "Error al cargar los datos de usuario" };
+    return user;
   } catch (error) {
     console.error("ERROR: ", error.message);
+    throw new Error(error);
+  }
+}
+async function isAdminCheck(email) {
+  try {
+    const user = await User.findOne({ where: { email: email } });
+    if (!user) return { error: "Error al encontrar usuario" };
+    return user.isAdmin;
+  } catch (error) {
+    console.error("ERROR isAdminCheck: ", error.message);
     throw new Error(error);
   }
 }
@@ -226,4 +236,5 @@ module.exports = {
   logoutUser,
   getUserByEmail,
   getUserById,
+  isAdminCheck,
 };

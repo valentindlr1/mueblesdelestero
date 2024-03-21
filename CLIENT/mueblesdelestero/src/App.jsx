@@ -10,6 +10,7 @@ import Cart from "./components/Cart/Cart";
 import BuyStep1 from "./components/BuyStep1/BuyStep1";
 import BuyStep2 from "./components/BuyStep2/BuyStep2";
 import MyOrders from "./components/MyOrders/MyOrders";
+import AdminOrders from "./components/Admin/Orders/Orders";
 
 function App() {
   const location = useLocation();
@@ -26,6 +27,10 @@ function App() {
         <Route path="/datos-de-envio" element={<BuyStep1 />} />
         <Route path="/pago/:id" element={<BuyStep2 />} /> {/* ID DE LA COMPRA */}
         <Route path="/mis-compras" element={<MyOrders />} />
+
+        {/* ADMIN */}
+        <Route path="/admin-pedidos" element={<AdminOrders />} />
+
       </Routes>
     </div>
   );

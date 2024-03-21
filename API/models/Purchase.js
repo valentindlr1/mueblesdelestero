@@ -95,9 +95,8 @@ module.exports = (sequelize) => {
         defaultValue: "",
       },
       comprobantes: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
-        allowNull: false,
-        defaultValue: []
+        type: DataTypes.STRING,
+        allowNull: true
       }
     },
     {

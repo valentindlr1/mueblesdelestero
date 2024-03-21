@@ -1,0 +1,36 @@
+.admin-orders-container{
+  display: flex;
+  align-items: center;
+  width: 100vw;
+  min-height: 100vh;
+  flex-direction: column;
+  background-color: antiquewhite;
+}
+.admin-orders-list{
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+.admin-order-card{
+  background-color: rgb(239, 188, 142);
+  display: flex;
+  width: 100%;
+  padding: 0 1rem;
+  flex-direction: column;
+  height: fit-content;
+}
+.uno{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.dos{
+  display: flex;
+  flex-direction: column;
+}
+.dos span{
+  font-size: large;
+}
+.tres{
+  flex-direction: row;
+}

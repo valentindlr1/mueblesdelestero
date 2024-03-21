@@ -145,10 +145,6 @@ export default function BuyStep2() {
       ) : (
         loader
       )}
-
-      <footer>
-        <h3>Contacto</h3>
-      </footer>
     </main>
   );
 }

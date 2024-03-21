@@ -55,16 +55,24 @@ async function createPurchase({
       province,
       details,
       totalPrice,
-      userId
+      userId,
+      comprobantes: JSON.stringify([])
     });
     const user = await User.findByPk(userId);
     const { email } = user;
 
-    const productsInfo = await Promise.all(products.map(async (prod) => {
-      let prodInfo = await Product.findByPk(prod.id)
-      let resultData = {name: prodInfo.name, price: prodInfo.price, picture: prodInfo.picture, quantity: prod.quantity}
-      return resultData
-    }))
+    const productsInfo = await Promise.all(
+      products.map(async (prod) => {
+        let prodInfo = await Product.findByPk(prod.id);
+        let resultData = {
+          name: prodInfo.name,
+          price: prodInfo.price,
+          picture: prodInfo.picture,
+          quantity: prod.quantity,
+        };
+        return resultData;
+      })
+    );
 
     await sendPurchaseEmail({
       email,
@@ -118,11 +126,17 @@ async function setStatus({ id, status, trackCode }) {
 async function updateTotalPaid({ totalPaid, id }) {
   try {
     await Purchase.update({ totalPaid }, { where: { id } });
-    
+
     const { userId, totalPrice } = await Purchase.findByPk(id);
     const { email } = await User.findOne({ where: { id: userId } });
     await sendUpdatedPaymentEmail({ totalPaid, totalPrice, email });
-    return "Total abonado: $"+ totalPaid+ ". Total del pedido: $"+ totalPrice+".";
+    return (
+      "Total abonado: $" +
+      totalPaid +
+      ". Total del pedido: $" +
+      totalPrice +
+      "."
+    );
   } catch (error) {
     console.error("ERROR: ", error.message);
     throw new Error(error.message);

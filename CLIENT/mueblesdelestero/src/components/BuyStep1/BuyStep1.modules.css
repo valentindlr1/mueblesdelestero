@@ -1,7 +1,7 @@
 .buyContainer {
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     width: 100vw;
     background-color: antiquewhite;
@@ -58,7 +58,7 @@
 .retirarCheck {
     display: flex;
     flex-direction: row;
-    justify-content: start;
+    justify-content: flex-start;
     flex-wrap: wrap;
 }
 .checkbox {

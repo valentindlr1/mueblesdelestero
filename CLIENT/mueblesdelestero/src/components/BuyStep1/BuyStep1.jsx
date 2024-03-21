@@ -34,7 +34,7 @@ export default function BuyStep1() {
     location: "",
     ZIPcode: "",
   });
-  const [showAddress, setShowAddress] = useState(true)
+  const [showAddress, setShowAddress] = useState(true);
   const dispatch = useDispatch();
   const messages = useSelector((state) => state.notifMessages);
   const user = JSON.parse(window.localStorage.getItem("userInfo"));
@@ -71,11 +71,11 @@ export default function BuyStep1() {
   }
 
   function handleCheckbox(e) {
-    let checked = e.target.checked
-    if (checked){
-      setShowAddress(false)
+    let checked = e.target.checked;
+    if (checked) {
+      setShowAddress(false);
     } else {
-      setShowAddress(true)
+      setShowAddress(true);
     }
   }
 
@@ -132,6 +132,7 @@ export default function BuyStep1() {
           }, 3990);
           setIsLoading(false);
           let buyId = res.data.id;
+          window.localStorage.setItem("cart", JSON.stringify([]));
           navigate("/pago/" + buyId);
         })
         .catch((err) => console.error(err.message));
@@ -266,17 +267,25 @@ export default function BuyStep1() {
           <label>
             <h4>Domicilio</h4>
             <div className="retirarCheck">
-              <input type="checkbox" className="checkbox" onChange={handleCheckbox}></input>
+              <input
+                type="checkbox"
+                className="checkbox"
+                onChange={handleCheckbox}
+              ></input>
               <span>Prefiero retirarlo de sucursal.</span>
             </div>
-            {showAddress ? <input
-              type="text"
-              placeholder="Calle, Altura, Depto"
-              value={shippingInfo.address}
-              name="address"
-              onChange={handleShippingInfo}
-              required
-            ></input> : ""}
+            {showAddress ? (
+              <input
+                type="text"
+                placeholder="Calle, Altura, Depto"
+                value={shippingInfo.address}
+                name="address"
+                onChange={handleShippingInfo}
+                required
+              ></input>
+            ) : (
+              ""
+            )}
           </label>
           <label>
             <h4>Aclaraciones</h4>

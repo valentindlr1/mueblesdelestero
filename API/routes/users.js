@@ -11,9 +11,9 @@ const {
   logoutUserHandler,
   getUserByEmailHandler,
   getUserByIdHandler,
+  isAdminCheckHandler,
 } = require("../handlers/userHandler");
 
-/* GET users listing. */
 router.get("/", getAllUsersHandler);
 router.get("/:email", getUserByEmailHandler);
 router.get("/cuenta/:id", getUserByIdHandler);
@@ -24,5 +24,6 @@ router.get("/forgotPass", forgotPassHandler);
 router.put("/resetPass", resetPasshandler);
 router.put("/update/:id", updateUserInfoHandler);
 router.put("/setBan/:id", setBanStatusHandler);
+router.get("/admin/isAdmin/:email", isAdminCheckHandler);
 
 module.exports = router;

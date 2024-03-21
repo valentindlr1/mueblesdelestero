@@ -7,7 +7,7 @@ article {
   display: flex;
   flex-wrap: nowrap;
   flex-direction: column;
-  justify-content: start;
+  justify-content: flex-start;
   align-content: center;
   align-items: center;
   text-align: center;

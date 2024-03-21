@@ -9,6 +9,7 @@ const {
   logoutUser,
   getUserByEmail,
   getUserById,
+  isAdminCheck,
 } = require("../controllers/userController");
 const {
   sendRegisterEmail,
@@ -135,6 +136,16 @@ async function getUserByIdHandler (req, res) {
     return res.status(400).json(error);
   }
 }
+async function isAdminCheckHandler (req, res) {
+  try {
+    const {email} = req.params
+    const response = await isAdminCheck(email)
+    return res.status(200).send(response)
+  } catch (error) {
+    console.error("ERROR isAdminCheckHandler: ", error.message);
+    return res.status(400).json(error);
+  }
+}
 
 module.exports = {
   getAllUsersHandler,
@@ -147,4 +158,5 @@ module.exports = {
   logoutUserHandler,
   getUserByEmailHandler,
   getUserByIdHandler,
+  isAdminCheckHandler,
 };

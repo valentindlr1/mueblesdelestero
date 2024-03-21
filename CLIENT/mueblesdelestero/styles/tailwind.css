@@ -1,0 +1,10 @@
+/* tailwind.css */
+@import "./colors.css";
+
+:root {
+    --primary-color: #ff5733;
+    --secondary-color: #4285f4;
+    /* ... más variables ... */
+}
+
+/* Resto de tus estilos de Tailwind y CSS aquí */
