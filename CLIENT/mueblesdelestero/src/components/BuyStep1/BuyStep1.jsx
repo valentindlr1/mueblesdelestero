@@ -118,7 +118,7 @@ export default function BuyStep1() {
           email: shippingInfo.email.length ? shippingInfo.email : user.email,
           products: cart,
           limitDate: "",
-          address: shippingInfo.address,
+          address: showAddress ? shippingInfo.address : "Sucursal",
           location: shippingInfo.location,
           ZIPcode: shippingInfo.ZIPcode,
           province: shippingInfo.province,

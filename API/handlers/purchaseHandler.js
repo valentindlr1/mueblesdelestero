@@ -78,8 +78,8 @@ async function getByUserIdHandler(req, res) {
 async function setStatusHandler(req, res) {
   try {
     const { id } = req.params;
-    const { status, trackCode } = req.body;
-    const response = await setStatus({ id, status, trackCode });
+    const { status, trackCode, comprobante } = req.body;
+    const response = await setStatus({ id, status, trackCode, comprobante });
     return res.send(response);
   } catch (error) {
     console.error("ERROR: ", error.message);

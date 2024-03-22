@@ -56,7 +56,6 @@ async function createPurchase({
       details,
       totalPrice,
       userId,
-      comprobantes: JSON.stringify([])
     });
     const user = await User.findByPk(userId);
     const { email } = user;
@@ -108,11 +107,23 @@ async function getByUserId(userId) {
     throw new Error(error.message);
   }
 }
-async function setStatus({ id, status, trackCode }) {
+async function setStatus({ id, status, trackCode, comprobante }) {
   try {
+    const order = await Purchase.findByPk(id);
     await Purchase.update({ status }, { where: { id } });
     if (trackCode) {
       await Purchase.update({ trackCode }, { where: { id } });
+    }
+    if (comprobante && comprobante.data && comprobante.amount) {
+      await Purchase.update(
+        {
+          comprobantes:
+            order.comprobantes !== null
+              ? JSON.stringify([...JSON.parse(order.comprobantes), comprobante])
+              : JSON.stringify([comprobante]),
+        },
+        { where: { id } }
+      );
     }
     const { userId } = await Purchase.findByPk(id);
     const { email } = await User.findOne({ where: { id: userId } });

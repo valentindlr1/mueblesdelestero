@@ -84,10 +84,56 @@ export default function AdminOrders() {
               </h4>
               <span>Comprobantes</span>
               <div className="admin-order-card tres">
-                {(JSON.parse(order.comprobantes))?.map((comp, i) => {
-
-                  return <img src={comp} key={i} alt={"comprobante " + (i + 1)} />;
+                {JSON.parse(order.comprobantes)?.map((comp, i) => {
+                  return (
+                    <div className="comprobante">
+                      <img
+                        src={comp.data}
+                        key={i}
+                        alt={"comprobante " + (i + 1)}
+                        className="comprobante-preview"
+                      />
+                      <span>
+                        {Number(comp.amount).toLocaleString("es-AR", {
+                          style: "currency",
+                          currency: "ARS",
+                          minimumFractionDigits: 2,
+                        })}
+                      </span>
+                    </div>
+                  );
                 })}
+              </div>
+            </div>
+            <div className="cuatro">
+              <h3>Modificar pedido</h3>
+              <div>
+              <select defaultValue={order.status}>
+                <option>En fabricación</option>
+                <option>Abonado</option>
+                <option>Señado</option>
+                <option>En camino</option>
+                <option>Entregado</option>
+                <option>Cancelado</option>
+                <option>Devolución</option>
+                <option>Listo</option>
+                <option>Cambio</option>
+                <option>Pago pendiente</option>
+                <option>Pago en revisión</option>
+              </select>
+                <button>Actualizar Estado</button>
+              </div>
+              <div>
+                <input type="number" placeholder="Total pagado" />
+                <button>Actualizar Total</button>
+              </div>
+              <div>
+                <input type="text" placeholder="Código de seguimiento" />
+                <button>Actualizar Código</button>
+              </div>
+              <div>
+                <input type="date" />
+                <button>Actualizar Fecha límite</button>
               </div>
             </div>
           </div>

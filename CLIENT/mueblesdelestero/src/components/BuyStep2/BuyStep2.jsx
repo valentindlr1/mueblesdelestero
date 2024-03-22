@@ -4,9 +4,13 @@ import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { cartQuantity } from "../../redux/actions";
+import resizeImage from "../../utils/imageResizer";
+import { pushNotifMessage } from "../../redux/actions";
+import NotifMessage from "../NotifMessage/NotifMessage";
 
 export default function BuyStep2() {
   const { id } = useParams();
+  const messages = useSelector((state) => state.notifMessages);
   const [totalPrice, setTotalPrice] = useState(0);
   const [isPaid, setIsPaid] = useState(0);
   const [loadingPayment, setLoadingPayment] = useState(true);
@@ -14,6 +18,7 @@ export default function BuyStep2() {
   const dispatch = useDispatch();
   const loader = <div className="customloader"></div>;
   const [paymentLeft, setPaymentLeft] = useState(0);
+  const [comprobante, setComprobante] = useState({});
 
   useEffect(() => {
     axios
@@ -37,21 +42,36 @@ export default function BuyStep2() {
       });
   }, []);
 
-  function confirmPartPay() {
+  function confirmPay() {
     setLoadingPayment(true);
     axios
-      .put("/purchases/status/" + id, { status: "Pago en revisión" })
+      .put("/purchases/status/" + id, {
+        status: "Pago en revisión",
+        comprobante,
+      })
       .then((res) => res.data)
       .then((info) => {
         setIsPaid(-1);
         window.localStorage.setItem("cart", JSON.stringify([]));
         dispatch(cartQuantity(0));
         setLoadingPayment(false);
+        dispatch(pushNotifMessage(info));
       })
       .catch((err) => {
         console.error(err.message);
         setLoadingPayment(false);
       });
+  }
+
+  async function handleComprobante(event) {
+    if (event.target.files && event.target.files[0]) {
+      try {
+        const resizedImage = await resizeImage(event.target.files[0]);
+        setComprobante({ data: resizedImage });
+      } catch (error) {
+        console.error("Error resizing image: ", error);
+      }
+    }
   }
 
   return (
@@ -98,11 +118,14 @@ export default function BuyStep2() {
           </h2>
           <p>No incluye costo de envío, el cual se abona al recibirlo.</p>
           {paymentLeft < totalPrice ? (
-            <span>Restante a abonar: {paymentLeft.toLocaleString("es-AR", {
-              style: "currency",
-              currency: "ARS",
-              minimumFractionDigits: 2,
-            })}</span>
+            <span>
+              Restante a abonar:{" "}
+              {paymentLeft.toLocaleString("es-AR", {
+                style: "currency",
+                currency: "ARS",
+                minimumFractionDigits: 2,
+              })}
+            </span>
           ) : (
             ""
           )}
@@ -118,9 +141,29 @@ export default function BuyStep2() {
           <section className="paymentFinish">
             <h2>Confirma tu pago</h2>
             <span>Cargar una captura del comprobante</span>
-            <input type="file"></input>
-            <button onClick={() => confirmPartPay()}>
-              He abonado la seña/el total del pedido
+            <input
+              type="file"
+              accept=".jpeg, .jpg, .png, .webp, .svg"
+              onChange={handleComprobante}
+            ></input>
+            {comprobante.data ? (
+              <input
+                type="number"
+                placeholder="Monto del comprobante"
+                onChange={(e) => {
+                  setComprobante({ ...comprobante, amount: e.target.value });
+                }}
+              />
+            ) : (
+              ""
+            )}
+            {comprobante.data ? (
+              <img src={comprobante.data} className="comprobante-preview" />
+            ) : (
+              ""
+            )}
+            <button onClick={() => confirmPay()}>
+              He abonado la seña o el total del pedido
             </button>
           </section>
         ) : isPaid === 1 ? (
@@ -145,6 +188,11 @@ export default function BuyStep2() {
       ) : (
         loader
       )}
+      {messages.length > 0
+        ? messages.map((msg, index) => (
+            <NotifMessage message={msg} key={index} />
+          ))
+        : ""}
     </main>
   );
 }

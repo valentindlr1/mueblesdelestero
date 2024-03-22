@@ -43,7 +43,6 @@ module.exports = (sequelize) => {
       address: {
         type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: "Sucursal",
       },
       location: {
         type: DataTypes.STRING,
@@ -84,7 +83,7 @@ module.exports = (sequelize) => {
           "Listo",
           "Cambio",
           "Pago pendiente",
-          "Pago en revisión",
+          "Pago en revisión"
         ),
         allowNull: false,
         defaultValue: "Pago pendiente",
@@ -95,9 +94,9 @@ module.exports = (sequelize) => {
         defaultValue: "",
       },
       comprobantes: {
-        type: DataTypes.STRING,
-        allowNull: true
-      }
+        type: DataTypes.TEXT,
+        allowNull: true,
+      },
     },
     {
       timestamps: false,
